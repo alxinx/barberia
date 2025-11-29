@@ -1,0 +1,18 @@
+extends ../layout/headerDashboard.pug
+block content
+    main(class="min-h-screen bg-[#F5F7F4] flex")
+
+        include ../layout/leftMenu.pug
+        section(class="flex-1 p-10")
+            include ../layout/header-body.pug
+            include ../layout/metricas.pug
+            include ../layout/tablas.pug
+
+
+    block script
+        script(src="https://unpkg.com/leaflet@1.8.0/dist/leaflet.js")
+        script(src="https://unpkg.com/esri-leaflet@3.0.8/dist/esri-leaflet.js")
+        script(src="https://unpkg.com/esri-leaflet-geocoder@2.2.13/dist/esri-leaflet-geocoder.js")
+        script(src="https://cdnjs.cloudflare.com/ajax/libs/leaflet-geosearch/2.7.0/bundle.min.js")
+        
+

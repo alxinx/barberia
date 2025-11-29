@@ -1,0 +1,40 @@
+//- Contenedor de la tabla
+section(class="max-w-6xl mx-auto mt-8")
+  div(class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6")
+    h2(class="text-lg font-semibold text-slate-800 mb-4") Barberos Registrados
+
+    div(class="overflow-x-auto")
+      table(class="min-w-full text-left text-sm border border-gray-200")
+        thead(class="bg-gray-50")
+          tr
+            th(class="px-6 py-3 font-semibold text-xs tracking-wider text-slate-500 border-b border-gray-200 align-middle text-center")
+            th(class="px-6 py-3 font-semibold text-xs tracking-wider text-slate-500 border-b border-gray-200 align-middle text-center") Nombre Barbero
+            th(class="px-6 py-3 font-semibold text-xs tracking-wider text-slate-500 border-b border-gray-200 align-middle text-center") Barbería
+            th(class="px-6 py-3 font-semibold text-xs tracking-wider text-slate-500 border-b border-gray-200 align-middle text-center") WhatsApp
+            th(class="px-6 py-3 font-semibold text-xs tracking-wider text-slate-500 border-b border-gray-200 align-middle text-center") Activo
+            th(class="px-6 py-3 font-semibold text-xs tracking-wider text-slate-500 border-b border-gray-200 align-middle text-center") Ventas Mes
+            th(class="px-6 py-3 font-semibold text-xs tracking-wider text-slate-500 border-b border-gray-200 text-center") 
+
+        tbody
+
+          each barbero in listaBarberos
+            //- Fila 1
+            tr(class="hover:bg-gray-50 transition")
+              td(class="px-4 py-2 border-t border-gray-200 text-slate-700")
+                div(class="flex flex-col items-center text-center")
+                  div(class="w-24 h-10 sm:w-10  rounded-full shadow-gray-900 shadow overflow-hidden bg-green-100 mb-4")
+                      img(src="/images/avatar/ec1e0bce-e592-431e-8834-bc78b4196a78.png" alt="Profile" class="w-full h-full object-cover")
+              td(class="px-4 py-2 border-t border-gray-200 text-slate-700")=barbero.nombreBarbero
+              td(class="px-6 py-4 border-t border-gray-200 text-slate-500 text-center")=barbero.barberia.nombre 
+              td(class="px-6 py-4 border-t border-gray-200 text-slate-500 text-center")=barbero.whatsApp
+              td(class="px-6 py-4 border-t border-gray-200 text-slate-500 text-center")
+                if barbero.activo === true
+                  p Si
+                else 
+                  p No
+              td(class="px-6 py-4 border-t border-gray-200 text-slate-500") $500.000
+              td(class="px-1 py-1 border-t border-gray-200 text-center")
+                a(href="/panel/barberos/ver/"+barbero.idBarbero  class="inline-flex items-center px-3 py-1 rounded-lg text-xs font-medium text-green-600 bg-green-50 hover:b-py-2 m-1.5-green-100 transition py-2 hover:bg-indigo-100 hover:text-indigo-800"
+                ) Ver más
+            
+                

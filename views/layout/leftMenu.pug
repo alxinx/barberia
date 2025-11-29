@@ -1,0 +1,58 @@
+// SIDEBAR
+aside(class="w-64 bg-white border-r border-gray-200 p-6 flex flex-col justify-between ")
+    div
+        a(href="/panel") 
+            h1(class="text-2xl font-bold text-[#2CA58D] mb-10 cursor-pointer")
+                p #{APPNAME}
+
+           
+               
+            div( class= active === 'dashboard' ? "flex items-center gap-3 bg-[#C9E4CA] text-[#234E52] px-3 py-2 rounded-xl font-semibold cursor-pointer" : "flex items-center gap-3 text-gray-700 px-3 py-2 rounded-xl cursor-pointer hover:bg-gray-100")
+                 span Dashboard
+
+        // Puntos de Venta
+        a(href="/panel/puntos_de_venta") 
+
+            div( class= active === 'puntosventa' ? "flex items-center gap-3 bg-[#C9E4CA] text-[#234E52] px-3 py-2 rounded-xl font-semibold cursor-pointer" : "flex items-center gap-3 text-gray-700 px-3 py-2 rounded-xl cursor-pointer hover:bg-gray-100")
+                span Punto de Venta
+                
+
+        // Barberos
+        a(href="/panel/barberos") 
+
+            div( class= active === 'barberos' ? "flex items-center gap-3 bg-[#C9E4CA] text-[#234E52] px-3 py-2 rounded-xl font-semibold cursor-pointer" : "flex items-center gap-3 text-gray-700 px-3 py-2 rounded-xl cursor-pointer hover:bg-gray-100")
+                span Barberos
+                
+
+        // Clientes
+        a(href="/panel/clientes") 
+            div( class= active === 'clientes' ? "flex items-center gap-3 bg-[#C9E4CA] text-[#234E52] px-3 py-2 rounded-xl font-semibold cursor-pointer" : "flex items-center gap-3 text-gray-700 px-3 py-2 rounded-xl cursor-pointer hover:bg-gray-100")
+                span Clientes
+
+            // Administración
+        a(href="/panel/administracion") 
+            div(class="flex items-center gap-3 text-gray-700")
+                div(class="w-4 h-4 rounded-md bg-[#C9E4CA]")
+                span Administración
+                div(class="text-[#2CA58D] text-lg ml-auto") ➜
+
+
+        // Submenú
+        ul(class="ml-8 space-y-2 text-sm hidden")
+        li(class="text-[#2CA58D] flex items-center gap-2")
+            div(class="w-2 h-2 rounded-full bg-[#2CA58D]")
+            | Productos/Servicios
+
+        li(class="text-[#2CA58D] flex items-center gap-2")
+            div(class="w-2 h-2 rounded-full bg-[#2CA58D]")
+            | Financiero
+        
+        
+        
+        
+        // Logout
+        a(href="/panel/logOut") 
+            div(class="flex items-center gap-3 text-gray-700 mt-10 cursor-pointer")
+                div(class="w-4 h-4 rounded-md bg-[#C9E4CA]")
+                span Cerrar Sesión
+

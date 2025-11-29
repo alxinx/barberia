@@ -1,0 +1,14 @@
+header(class="w-full flex items-center justify-between px-8 py-4 bg-[#FBFAFF] border-b border-gray-100 sticky top-0")
+  //- Texto izquierda
+  div(class="flex flex-col ")
+    h1(class="text-xl md:text-2xl font-semibold text-slate-700")
+      | #{titulo}
+    p(class="text-sm text-gray-400 mt-1")
+      span  #{subTitulo}
+
+  //- Botones derecha
+  div(class="flex items-center gap-3")
+    a(href="/panel/listadoPuntosVenta/" class="px-4 py-2 rounded-lg text-sm font-medium text-gray-600 bg-gray-100 hover:bg-gray-200 transition shadow-sm")  Ver todos los puntos de venta
+
+    a(href="/panel/puntos_de_venta/" class="px-4 py-2 rounded-lg text-sm font-medium text-gray-600 bg-gray-100 hover:bg-gray-200 transition shadow-sm")  Crear punto de venta
+    
