@@ -63,10 +63,7 @@ section(class="max-w-6xl mx-auto space-y-6")
               
           // Botones
           div(class="mt-6 flex flex-col sm:flex-row gap-3")
-              button#btnAbrirModal(
-                  type="button"
-                  class="w-full sm:flex-1 inline-flex justify-center items-center px-4 py-2.5 rounded-xl text-sm font-medium text-white bg-green-500 hover:bg-green-600 transition shadow-sm cursor-pointer"
-              ) Editar
+              
               button(
                   type="button"
                   class="w-full sm:flex-1 inline-flex justify-center items-center px-4 py-2.5 rounded-xl text-sm font-medium text-red-500 bg-red-50 hover:bg-red-100 transition cursor-pointer  "
@@ -77,7 +74,7 @@ section(class="max-w-6xl mx-auto space-y-6")
 
           nav(class="flex items-center gap-2 sm:gap-4 border-b border-gray-100 pb-3 mb-4 text-xs sm:text-sm overflow-x-auto no-scrollbar")
             button(class="inline-flex flex-shrink-0 items-center gap-2 px-4 py-2 rounded-full bg-green-500 text-white font-medium shadow-sm cursor-pointer")
-              span Desempeño
+              span Datos Básicos
             
             button(class="flex-shrink-0 px-4 py-2 rounded-full text-gray-500 hover:text-slate-800 hover:bg-gray-50 font-medium cursor-pointer") Comisiones
             
@@ -99,4 +96,145 @@ section(class="max-w-6xl mx-auto space-y-6")
                 placeholder="Busca"
                 class="w-full rounded-xl border border-gray-200 bg-gray-50 pl-9 pr-3 py-2 text-xs sm:text-sm text-slate-800 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
               )
-        
+
+          
+          div(class="px-8 py-6 space-y-6")
+            // GRID DE DOS COLUMNAS
+            form( method="POST" enctype="multipart/form-data" class="space-y-6")
+            input(type="hidden", name="_csrf" value = csrfToken)
+            input(type="hidden", name="idBarbero" value  = (barberData ? barberData.idBarbero : ""))
+            div(class="grid grid-cols-1 md:grid-cols-2 gap-6")
+            
+              // NOMBRE
+              div
+                  label(for="nombreBarbero" class="block text-sm font-medium text-slate-700 mb-1") Nombre del Barbero
+                      input(
+                      type="text"
+                      id="nombreBarbero"
+                      name="nombreBarbero"
+                      placeholder="Julian (SIN APELLIDO)"
+                      value = barberData ? barberData.nombreBarbero : ""
+                      class="block w-full rounded-lg border border-gray-200 bg-gray-50 px-3 py-2.5 text-sm text-slate-800 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+                      )
+                      if errs
+                          p(class="text-red-600 font-bold")=errs.nombreBarbero 
+
+              // APELLIDO
+              div
+                label(for="apellidoBarbero" class="block text-sm font-medium text-slate-700 mb-1") Apellido del Barbero
+                  input(
+                  type="text"
+                  id="apellidoBarbero"
+                  name="apellidoBarbero"
+                  placeholder="Perez"
+                  value = barberData ? barberData.apellidoBarbero : ""
+                  class="block w-full rounded-lg border border-gray-200 bg-gray-50 px-3 py-2.5 text-sm text-slate-800 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+                  )
+                  if errs
+                      p(class="text-red-600 font-bold")=errs.apellidoBarbero 
+              
+              div
+                label(for="identificacionBarbero" class="block text-sm font-medium text-slate-700 mb-1") Identificación.
+                  input(
+                  type="text"
+                  id="identificacionBarbero"
+                  name="identificacionBarbero"
+                  placeholder="1020304050"
+                  value = barberData ? barberData.identificacionBarbero : ""
+                    class="block w-full rounded-lg border border-gray-200 bg-gray-50 px-3 py-2.5 text-sm text-slate-800 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+                  )
+                  if errs
+                    p(class="text-red-600 font-bold")=errs.identificacionBarbero
+                  
+                    if errores
+                    each err  in errores
+                      if err.params == 'identificacionBarbero'
+              
+              // CIUDAD
+              div
+                label(for="ciudad" class="block text-sm font-medium text-slate-700 mb-1") Ciudad
+                  input(
+                  type="text"
+                  id="ciudad"
+                  name="ciudad"
+                  placeholder="Medellín",
+                  value = barberData ? barberData.ciudad : ""
+                  class="block w-full rounded-lg border border-gray-200 bg-gray-50 px-3 py-2.5 text-sm text-slate-800 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+                  )
+                  if errs
+                      p(class="text-red-600 font-bold")=errs.ciudad
+            
+              // DIRECCIÓN
+              div
+                label(for="direccionBarbero" class="block text-sm font-medium text-slate-700 mb-1") Dirección
+                    input(
+                    type="text"
+                    id="direccionBarbero"
+                    name="direccionBarbero"
+                    placeholder="Calle 10 nro 1010"
+                    value = barberData ? barberData.direccionBarbero : ""
+                    class="block w-full rounded-lg border border-gray-200 bg-gray-50 px-3 py-2.5 text-sm text-slate-800 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+                    )
+                    if errs
+                        p(class="text-red-600 font-bold")=errs.direccionBarbero
+
+              div
+                label(for="whatsApp" class="block text-sm font-medium text-slate-700 mb-1") WhatsApp
+                    input(
+                    type="text"
+                    id="whatsApp"
+                    name="whatsApp"
+                    value = barberData ? barberData.whatsApp : ""
+                    placeholder="300 000 00 00"
+                    class="block w-full rounded-lg border border-gray-200 bg-gray-50 px-3 py-2.5 text-sm text-slate-800 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+                    )
+                    if errs
+                        p(class="text-red-600 font-bold")=errs.whatsApp
+
+                    if errores
+                      each err in errores 
+                        if err.param == 'whatsApp'
+                        p(class="text-red-600 font-bold")=err.msg
+            
+              // EMAIL
+              div
+                label(for="email" class="block text-sm font-medium text-slate-700 mb-1") Email
+                    input(
+                    type="email"
+                    id="email"
+                    name="email"
+                    value = barberData ? barberData.email : ""
+                    placeholder="barbero@barbero.com"
+                    class="block w-full rounded-lg border border-gray-200 bg-gray-50 px-3 py-2.5 text-sm text-slate-800 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+                    )
+                    if errs
+                        p(class="text-red-600 font-bold")=errs.email
+                    if errores
+                      each err in errores 
+                        if err.param == 'email'
+                        p(class="text-red-600 font-bold")=err.msg  
+
+                //BARBERIA
+              div
+                label(for="idBarberia" class="block text-sm font-medium text-slate-700 mb-1") En cuál barbería estará?
+                select(name="idBarberia" id = "idBarberia" class="block w-full rounded-lg border border-gray-200 bg-gray-50 px-3 py-2.5 text-sm text-slate-800 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500")
+                    option(value="" disabled selected)=barberData.idBarberia
+                    each barberia in listadoBarberias
+                        if barberia.idPuntoVenta == barberData.idBarberia
+                            option( value=barberia.idPuntoVenta selected )= barberia.nombre
+                        else
+                            option( value=barberia.idPuntoVenta )= barberia.nombre
+
+              div
+                label(for="activo" class="block text-sm font-medium text-slate-700 mb-1") Activo
+                select(name="activo" id = "activo" class="block w-full rounded-lg border border-gray-200 bg-gray-50 px-3 py-2.5 text-sm text-slate-800 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500")
+                    option(value="1") Si 
+                    option(value="0") No 
+
+            div(class="flex justify-center m-3.5")
+                      button(
+                          type="submit"
+                          class="px-5 py-2 w-4xl rounded-lg text-sm font-medium text-white bg-green-500 hover:bg-green-600 shadow-md transition cursor-pointer"
+                          )=btn
+                              span a  #{barberData.nombreBarbero}
+                

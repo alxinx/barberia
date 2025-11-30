@@ -1,6 +1,8 @@
+
 // ---------- MODAL ----------
+- const modalBarberoVisible = typeof abrirModalBarbero !== 'undefined' && abrirModalBarbero;
 div#modalBarbero(
-  class="fixed inset-0 z-50 hidden flex items-center justify-center bg-black/50"
+  class=`fixed inset-0 z-50  ${modalBarberoVisible ? 'flex' : 'hidden flex'} items-center justify-center bg-black/50`
 )
   div(class="bg-white rounded-xl shadow-xl w-full max-w-3xl mx-4 overflow-hidden")
     form( method="POST" enctype="multipart/form-data" class="space-y-6")
@@ -13,7 +15,6 @@ div#modalBarbero(
 
     // CONTENIDO FORMATEADO CON <p>
     div(class="px-8 py-6 space-y-6")
-
       // GRID DE DOS COLUMNAS
       div(class="grid grid-cols-1 md:grid-cols-2 gap-6")
 
@@ -47,17 +48,17 @@ div#modalBarbero(
 
         // IDENTIFICACIÓN
         div
-                label(for="identificacionBarbero" class="block text-sm font-medium text-slate-700 mb-1") Identificación.
-                   input(
-                   type="text"
-                   id="identificacionBarbero"
-                   name="identificacionBarbero"
-                   placeholder="1020304050"
-                   value = barberData ? barberData.identificacionBarbero : ""
-                   class="block w-full rounded-lg border border-gray-200 bg-gray-50 px-3 py-2.5 text-sm text-slate-800 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
-                   )
-                   if errs
-                       p(class="text-red-600 font-bold")=errs.identificacionBarbero
+          label(for="identificacionBarbero" class="block text-sm font-medium text-slate-700 mb-1") Identificación.
+             input(
+             type="text"
+             id="identificacionBarbero"
+             name="identificacionBarbero"
+             placeholder="1020304050"
+             value = barberData ? barberData.identificacionBarbero : ""
+              class="block w-full rounded-lg border border-gray-200 bg-gray-50 px-3 py-2.5 text-sm text-slate-800 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+             )
+             if errs
+                  p(class="text-red-600 font-bold")=errs.identificacionBarbero
 
                 if errores
                   each err  in errores
@@ -93,7 +94,7 @@ div#modalBarbero(
                 if errs
                     p(class="text-red-600 font-bold")=errs.direccionBarbero
 
-        // COMISIÓN
+
         div
             label(for="whatsApp" class="block text-sm font-medium text-slate-700 mb-1") WhatsApp
                 input(

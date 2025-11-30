@@ -200,10 +200,9 @@ const agregarBarberosPost = async (req, res) => {
 const loadDatosBarbero = async(req, res)=>{
     const listadoBarberias = await obtenerListadoBarberias();
     const idBarbero = req.params.idBarbero;
-    console.log(idBarbero)
     
-    const barberData = await loadBarberData(idBarbero)
-    return res.status(400).render('../views/dashboard/barberos/ver', {
+    const barberData = await loadBarberData(idBarbero);
+        return res.status(400).render('../views/dashboard/barberos/ver', {
         APPNAME : process.env.APP_NAME,
         csrfToken : req.csrfToken(),
         titulo : 'Hoja del Barbero',
@@ -217,6 +216,113 @@ const loadDatosBarbero = async(req, res)=>{
    
 }
 
+const editoDatosBarbero = async (req, res)=>{
+   
+    //Valido los datos.
+    const listadoBarberias = await obtenerListadoBarberias();
+    //Valido los campos 
+    await check('nombreBarbero')
+            .trim()
+            .notEmpty()
+            .withMessage('Cómo se llama el barbero?😬')
+            .run(req);
+    
+    await check('apellidoBarbero')
+            .trim()
+            .notEmpty()
+            .withMessage('Cómo se apellida el barbero?😬')
+            .run(req);
+
+    await check('identificacionBarbero')
+            .trim()
+            .notEmpty()
+            .withMessage('Es necesaria la identificación')
+            .run(req);
+
+    await check('email')
+            .trim()
+            .isEmail()
+            .withMessage('Es necesario un email')
+            .run(req);
+
+    await check('whatsApp')
+            .trim()
+            .notEmpty()
+            .withMessage('El celular o whatsapp es necesario')
+            .run(req);
+    
+    await check('direccionBarbero')
+            .trim()
+            .notEmpty()
+            .withMessage('Dónde vive el barbero?')
+            .run(req);
+    
+    await check('ciudad')
+            .trim()
+            .notEmpty()
+            .withMessage('En cuál ciudad vive?')
+            .run(req);
+
+    await check('comision')
+            .trim()
+            .isFloat()
+            .withMessage('Debes decirme cual va a ser la comisión por servicio, si no aplica, pon 0')
+            .run(req);
+
+
+    const {nombreBarbero, apellidoBarbero,identificacionBarbero, email, whatsApp, activo,direccionBarbero, ciudad,comision, idBarberia, foto} = req.body
+    
+
+    let resultados = validationResult(req);
+
+    //Verifico si existe algún error en la validación.
+    const erroresValidacion = resultados.array();
+
+    //Si existen campos repetidos, los guardaré en este objeto para luego sacarlos al frontend.
+    const errsPorCampo = {};
+    erroresValidacion.forEach(err => 
+        {
+            if (!errsPorCampo[err.path]) {
+                errsPorCampo[err.path] = err.msg;
+            }
+    });
+
+    if(!resultados.isEmpty()){
+        return res.status(400).render('../views/dashboard/barberos/ver', {
+        APPNAME : process.env.APP_NAME,
+        csrfToken : req.csrfToken(),
+        titulo : 'Agregar Barbero',
+        active: 'barberos',
+        subTitulo : 'Nuevo Barbero',
+        listadoBarberias,
+        errs : errsPorCampo,
+        usuario : {
+            nombreBarbero : nombreBarbero,
+            apellidoBarbero : apellidoBarbero,
+            identificacionBarbero : identificacionBarbero,
+            email : email,
+            whatsApp : whatsApp,
+            activo : activo,
+            direccionBarbero: direccionBarbero,
+            ciudad : ciudad,
+            comision: comision
+        },
+        btn : 'VOLVER A EDITAR',
+        abrirModalBarbero: true 
+    })
+
+    }
+
+
+
+
+
+
+    //Verifico repetidos
+
+    //Edito los datos del usuario
+}
+
 
 
 
@@ -226,5 +332,6 @@ export {
         listadoBarberos,
         agregarBarberos,
         agregarBarberosPost,
-        loadDatosBarbero
+        loadDatosBarbero,
+        editoDatosBarbero
     }
