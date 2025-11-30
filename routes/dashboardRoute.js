@@ -2,6 +2,7 @@ import express from "express";
 import {home, crearPuntosVenta, crearPuntosVentaPost, listadoPuntosVenta, editarPuntosVenta,editarPuntosVentaPost, logOut} from "../controllers/dashboardControllers.js";
 
 import {listadoBarberos,agregarBarberos,agregarBarberosPost, loadDatosBarbero} from "../controllers/barberosControllers.js"
+import {uploadFotoBarbero} from '../config/uploadBarberos.js'
 
 import {rutaProtegida} from "../middlewares/authMiddleware.js"
 
@@ -24,7 +25,7 @@ route.post('/puntos_de_venta', crearPuntosVentaPost)
 //BARBEROS
 
 route.get('/barberos', listadoBarberos)
-route.get('/nuevoBarbero', agregarBarberos)
+route.get('/nuevoBarbero', uploadFotoBarbero.single('foto'), agregarBarberos)
 route.get('/barberos/ver/:idBarbero', loadDatosBarbero )
 
 

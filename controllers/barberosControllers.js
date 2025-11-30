@@ -2,8 +2,9 @@ import express from "express";
 const route = express.Router();
 import { check, validationResult } from "express-validator";
 import { Barbero, PuntosDeVenta } from "../models/index.js";
-import {obtenerListadoBarberias, obtenerListadoBarberos, obtenerCamposDuplicados} from '../services/puntosVentaService.js'
-import {loadBarberData} from '../services/barberosServices.js'
+import {obtenerListadoBarberias, obtenerListadoBarberos, obtenerCamposDuplicados, invalidaCacheListado} from '../services/puntosVentaService.js'
+import {loadBarberData} from '../services/barberosServices.js';
+
 
 
 //Listado de barberias
@@ -100,7 +101,7 @@ const agregarBarberosPost = async (req, res) => {
             .run(req);
 
 
-    const {nombreBarbero, apellidoBarbero,identificacionBarbero, email, whatsApp, activo,direccionBarbero, ciudad,comision, idBarberia} = req.body
+    const {nombreBarbero, apellidoBarbero,identificacionBarbero, email, whatsApp, activo,direccionBarbero, ciudad,comision, idBarberia, foto} = req.body
     
 
     let resultados = validationResult(req);
@@ -150,12 +151,6 @@ const agregarBarberosPost = async (req, res) => {
             duplicadosObj[err.param] = err.msg;
         }); 
 
-
-        registrosRepetidos.forEach(es =>{
-            console.log(es.msg)
-        })
-
-    console.log("Registros: "+duplicadosObj);
     
     if (registrosRepetidos.length > 0) {
         return res.status(400).render('../views/dashboard/barberos/nuevoBarbero', {
@@ -170,11 +165,20 @@ const agregarBarberosPost = async (req, res) => {
             btn: 'VOLVER A GUARDAR'
         });
     }
-    //Procedo a guardar al barbero :)
 
+    //subo la foto
+
+
+
+    //Procedo a guardar al barbero :)
+    console.log(`Foto: ${foto}`)
+    invalidaCacheListado();
     await Barbero.create({
         nombreBarbero, apellidoBarbero,identificacionBarbero, email, whatsApp, activo,direccionBarbero, ciudad,comision, idBarberia
     })
+
+    
+
 
     //Regreso al formulario.
      return res.status(400).render('../views/dashboard/barberos/nuevoBarbero', {
@@ -186,27 +190,28 @@ const agregarBarberosPost = async (req, res) => {
         listadoBarberias,
         success : [{
             msg : `${nombreBarbero} fue creado como barbero exitosamente 😎`
-        }]
+        }],
+        btn : 'GUARDAR'
     })
-
 }
 
 
 //CARGO DATOS DE BARBERO
 const loadDatosBarbero = async(req, res)=>{
-
+    const listadoBarberias = await obtenerListadoBarberias();
     const idBarbero = req.params.idBarbero;
     console.log(idBarbero)
     
     const barberData = await loadBarberData(idBarbero)
-    console.log(barberData)
     return res.status(400).render('../views/dashboard/barberos/ver', {
         APPNAME : process.env.APP_NAME,
         csrfToken : req.csrfToken(),
         titulo : 'Hoja del Barbero',
         active: 'barberos',
         subTitulo : 'Datos completos del barbero',
-        barberData
+        barberData,
+        listadoBarberias,
+        btn : 'EDITAR '
     })
     
    
