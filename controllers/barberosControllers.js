@@ -200,7 +200,10 @@ const agregarBarberosPost = async (req, res) => {
 const loadDatosBarbero = async(req, res)=>{
     const listadoBarberias = await obtenerListadoBarberias();
     const idBarbero = req.params.idBarbero;
-    
+    const { form } = req.query;  
+    console.log('--------------------------[CHECK POINT 204]--------------------------')
+    console.log(form)
+
     const barberData = await loadBarberData(idBarbero);
         return res.status(400).render('../views/dashboard/barberos/ver', {
         APPNAME : process.env.APP_NAME,
@@ -210,6 +213,9 @@ const loadDatosBarbero = async(req, res)=>{
         subTitulo : 'Datos completos del barbero',
         barberData,
         listadoBarberias,
+        mostrarComisiones : form === 'comisiones',
+        mostrarHistorial : form === 'historial',
+        mostrarDocumentacion : form === 'documentacion',
         btn : 'EDITAR '
     })
     
@@ -217,7 +223,6 @@ const loadDatosBarbero = async(req, res)=>{
 }
 
 const editoDatosBarbero = async (req, res)=>{
-   
     //Valido los datos.
     const listadoBarberias = await obtenerListadoBarberias();
     //Valido los campos 
@@ -263,15 +268,10 @@ const editoDatosBarbero = async (req, res)=>{
             .withMessage('En cuál ciudad vive?')
             .run(req);
 
-    await check('comision')
-            .trim()
-            .isFloat()
-            .withMessage('Debes decirme cual va a ser la comisión por servicio, si no aplica, pon 0')
-            .run(req);
 
+    const {nombreBarbero, apellidoBarbero,identificacionBarbero, email, whatsApp, activo,direccionBarbero, ciudad, idBarbero, idBarberia, foto} = req.body
+    const barberData = await loadBarberData(idBarbero);
 
-    const {nombreBarbero, apellidoBarbero,identificacionBarbero, email, whatsApp, activo,direccionBarbero, ciudad,comision, idBarberia, foto} = req.body
-    
 
     let resultados = validationResult(req);
 
@@ -287,14 +287,16 @@ const editoDatosBarbero = async (req, res)=>{
             }
     });
 
+
     if(!resultados.isEmpty()){
         return res.status(400).render('../views/dashboard/barberos/ver', {
         APPNAME : process.env.APP_NAME,
         csrfToken : req.csrfToken(),
         titulo : 'Agregar Barbero',
         active: 'barberos',
-        subTitulo : 'Nuevo Barbero',
+        subTitulo : 'Datos del barbero',
         listadoBarberias,
+        barberData,
         errs : errsPorCampo,
         usuario : {
             nombreBarbero : nombreBarbero,
@@ -305,23 +307,69 @@ const editoDatosBarbero = async (req, res)=>{
             activo : activo,
             direccionBarbero: direccionBarbero,
             ciudad : ciudad,
-            comision: comision
         },
         btn : 'VOLVER A EDITAR',
-        abrirModalBarbero: true 
-    })
+        })
+    }
+    //Verifico repetidos
+    const registrosRepetidos = await obtenerCamposDuplicados(req.body)
 
+    console.log(`Dato duplicado: ${registrosRepetidos}`)
+    const duplicadosObj = {};
+        registrosRepetidos.forEach(err => {
+            duplicadosObj[err.param] = err.msg;
+        }); 
+
+    
+    if (registrosRepetidos.length > 0) {
+        return res.status(400).render('../views/dashboard/barberos/ver', {
+            APPNAME: process.env.APP_NAME,
+            csrfToken: req.csrfToken(),
+            titulo: 'Agregar Barbero',
+            active: 'barberos',
+            subTitulo: 'Nuevo Barbero',
+            listadoBarberias,
+            barberData,
+            errs: duplicadosObj,   // 👈 ENVÍAS LOS DUPLICADOS
+            usuario: req.body,
+            btn: 'VOLVER A EDITAR'
+        });
     }
 
-
-
-
-
-
-    //Verifico repetidos
-
     //Edito los datos del usuario
-}
+    const edicion = await Barbero.findByPk(idBarbero)
+    console.log('--------------------------[CHECK POINT 336]--------------------------')
+    console.log(`Dato activo: ${barberData.activo}`)
+
+    edicion.nombreBarbero = nombreBarbero;
+    edicion.apellidoBarbero = apellidoBarbero;
+    edicion.identificacionBarbero = identificacionBarbero;
+    edicion.email = email;
+    edicion.whatsApp = whatsApp;
+    edicion.activo = activo;
+    edicion.idBarberia = idBarberia
+    edicion.direccionBarbero= direccionBarbero;
+    edicion.ciudad = ciudad;
+    edicion.save()
+    
+    invalidaCacheListado(); //Limpio el cache del listado,
+    
+    
+    return res.status(400).render('../views/dashboard/barberos/ver', {
+        APPNAME : process.env.APP_NAME,
+        csrfToken : req.csrfToken(),
+        titulo : 'Agregar Barbero',
+        active: 'barberos',
+        subTitulo : 'Datos del barbero',
+        listadoBarberias,
+        barberData,
+        success : [
+            {msg : `${nombreBarbero}. Fue editado con éxito.🙂`}
+        ],
+        btn : 'VOLVER A EDITAR '
+    })
+    //res.redirect('/panel/barberos/')
+}//FIN EDICION DE DATO USUARIO
 
 
 

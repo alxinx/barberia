@@ -45,45 +45,53 @@ const obtenerListadoBarberos = async () => {
 
 
 
-const obtenerCamposDuplicados = async ({ whatsApp, email, identificacionBarbero }) => {
+const obtenerCamposDuplicados = async ({ whatsApp, email, identificacionBarbero, idBarbero }) => {
+  // Construimos el where base
 
-    const registro = await Barbero.findOne({
-        where : {
-            [Op.or]:[
-                { whatsApp },
-                { identificacionBarbero },
-                { email }
-            ]
-        }
-    })
-    
-    let camposDuplicados = [];
-    if(!registro){
-        return camposDuplicados;
-    }
+  console.log('ID BARBERO DESDE DUPLICADO:', idBarbero)
+  const where = {
+    [Op.or]: [
+      { whatsApp },
+      { identificacionBarbero },
+      { email }
+    ]
+  };
 
-    if(registro.whatsApp === whatsApp){
-        camposDuplicados.push({
-                msg: 'El WhatsApp ya está registrado',
-                param: 'whatsApp'
-            });
-    }
-    if(registro.email === email){
-        camposDuplicados.push({
-            msg :  'El Email ya existe.',
-            param : 'email'
-        })
-    }
-    if(registro.identificacionBarbero === identificacionBarbero){
-        camposDuplicados.push({
-            msg :  'El numero de identificación ya existe.',
-            param : 'identificacionBarbero'
-        })
-    }
-    console.log(registro)
-    console.log(`Campos duplicados : ${camposDuplicados.length}`)
-    return camposDuplicados
-}
+  // Si estamos editando, excluimos el propio registro
+  if (idBarbero != null) {
+    where.idbarbero = { [Op.ne]: idBarbero }; // 👈 mismo nombre que en la BD
+  }
+
+  const registro = await Barbero.findOne({ where });
+
+  let camposDuplicados = [];
+  if (!registro) {
+    return camposDuplicados;
+  }
+
+  if (registro.whatsApp === whatsApp) {
+    camposDuplicados.push({
+      msg: 'El WhatsApp ya está registrado',
+      param: 'whatsApp'
+    });
+  }
+
+  if (registro.email === email) {
+    camposDuplicados.push({
+      msg: 'El Email ya existe.',
+      param: 'email'
+    });
+  }
+
+  if (registro.identificacionBarbero === identificacionBarbero) {
+    camposDuplicados.push({
+      msg: 'El número de identificación ya existe.',
+      param: 'identificacionBarbero'
+    });
+  }
+
+  return camposDuplicados;
+};
 
 
 
