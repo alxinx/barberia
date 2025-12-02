@@ -23,7 +23,8 @@ const listadoPuntosVenta = async (req,res)=>{
     const [listadoPuntosVenta] = await Promise.all([
         PuntosDeVenta.findAll()
     ])
-    res.status(201).render('../views/dashboard/listaPuntoVenta',{
+    //res.status(201).render('../views/dashboard/listaPuntoVenta',{
+    res.status(201).render('../views/dashboard/puntosVenta/ver',{
         APPNAME : process.env.APP_NAME,
         csrfToken : req.csrfToken(),
         titulo : 'Listado de puntos de venta',
@@ -61,7 +62,7 @@ const editarPuntosVenta  = async (req, res)=>{
     }
 
 
-   return res.status(201).render('../views/dashboard/editarPunto', {
+   return res.status(201).render('../views/dashboard/puntosVenta/editarPunto', {
         
         APPNAME : process.env.APP_NAME,
         csrfToken : req.csrfToken(),
@@ -170,7 +171,7 @@ const editarPuntosVentaPost = async (req,res)=>{
 
 
     if(!resultado.isEmpty()){
-            return res.status(201).render('../views/dashboard/editarPunto', {
+            return res.status(201).render('../views/dashboard/puntosVenta/editarPunto', {
             APPNAME : process.env.APP_NAME,
             csrfToken : req.csrfToken(),
             titulo : 'Edita punto de venta',
@@ -223,7 +224,7 @@ const editarPuntosVentaPost = async (req,res)=>{
             camposDuplicados.push("Email")
         }
 
-        return res.status(201).render('../views/dashboard/editarPunto', {
+            return res.status(201).render('../views/dashboard/puntosVenta/editarPunto', {
             APPNAME : process.env.APP_NAME,
             csrfToken : req.csrfToken(),
             titulo : 'Editar punto de venta',
@@ -263,7 +264,7 @@ const editarPuntosVentaPost = async (req,res)=>{
 
     puntoVenta.save()
     //Success
-    return res.status(201).render('../views/dashboard/editarPunto', {
+        return res.status(201).render('../views/dashboard/puntosVenta/editarPunto', {
         APPNAME : process.env.APP_NAME,
         csrfToken : req.csrfToken(),
         titulo : 'Editar punto de venta',
@@ -456,10 +457,6 @@ const crearPuntosVentaPost = async (req, res)=>{
             btn : 'GUARDAR'
         
         })
-
-      
-
-
     }
 
 

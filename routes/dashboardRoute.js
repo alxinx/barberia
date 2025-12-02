@@ -13,7 +13,7 @@ route.get('/', home)
 
 //PUNTOS DE VENTA
 route.get('/puntos_de_venta', crearPuntosVenta)
-route.get('/listadoPuntosVenta', listadoPuntosVenta)
+route.get('/puntosDeVenta', listadoPuntosVenta)
 route.get('/editarPunto/:idPuntoVenta', editarPuntosVenta )
 route.post('/editarPunto/:idPuntoVenta', editarPuntosVentaPost )
 route.post('/puntos_de_venta', crearPuntosVentaPost)
