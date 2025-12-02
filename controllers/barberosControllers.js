@@ -213,6 +213,7 @@ const loadDatosBarbero = async(req, res)=>{
         subTitulo : 'Datos completos del barbero',
         barberData,
         listadoBarberias,
+        mostrarData : form === 'datos',
         mostrarComisiones : form === 'comisiones',
         mostrarHistorial : form === 'historial',
         mostrarDocumentacion : form === 'documentacion',
