@@ -203,7 +203,7 @@ const loadDatosBarbero = async(req, res)=>{
     const { form } = req.query;  
     console.log('--------------------------[CHECK POINT 204]--------------------------')
     console.log(form)
-
+     const activeForm = form || 'datos'; 
     const barberData = await loadBarberData(idBarbero);
         return res.status(400).render('../views/dashboard/barberos/ver', {
         APPNAME : process.env.APP_NAME,
@@ -213,7 +213,8 @@ const loadDatosBarbero = async(req, res)=>{
         subTitulo : 'Datos completos del barbero',
         barberData,
         listadoBarberias,
-        mostrarData : form === 'datos',
+        activeForm,
+        mostrarData : form === 'data',
         mostrarComisiones : form === 'comisiones',
         mostrarHistorial : form === 'historial',
         mostrarDocumentacion : form === 'documentacion',
