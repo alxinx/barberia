@@ -1,13 +1,29 @@
+- const clActivo = "inline-flex flex-shrink-0 items-center gap-2 px-4 py-2 rounded-xl bg-green-500 text-white font-medium shadow-sm cursor-pointer"
+- const clInactivo = "inline-flex flex-shrink-0 items-center gap-2 px-4 py-2 rounded-xl bg-gray-200 text-gray-600 font-medium shadow-sm cursor-pointer"
+
 nav(class="flex items-center gap-4 border-b border-gray-100 pb-3 mb-4 text-sm")
-    a(href="/panel/barberos/ver/"+barberData.idBarbero )(class="inline-flex flex-shrink-0 items-center gap-2 px-4 py-2 rounded-xl bg-green-500 text-white font-medium shadow-sm cursor-pointer")
-        span Datos Básicos
-    
-    a(href="/panel/barberos/ver/"+barberData.idBarbero )(class="inline-flex flex-shrink-0 items-center gap-2 px-4 py-2 rounded-xl bg-gray-200 text-gray-600 font-medium shadow-sm cursor-pointer")
-        span Comisiones
 
-    a(href="/panel/barberos/ver/"+barberData.idBarbero )(class="inline-flex flex-shrink-0 items-center gap-2 px-4 py-2 rounded-xl bg-gray-200 text-gray-600 font-medium shadow-sm cursor-pointer")
-        span Historial
-    
-    a(href="/panel/barberos/ver/"+barberData.idBarbero )(class="inline-flex flex-shrink-0 items-center gap-2 px-4 py-2 rounded-xl bg-gray-200 text-gray-600 font-medium shadow-sm cursor-pointer")
-        span Documentación
+  // DATOS BÁSICOS (activo si activeForm === 'datos')
+  a(
+    href="/panel/barberos/ver/"+barberData.idBarbero
+    class= activeForm === 'datos' ? clActivo : clInactivo
+  )
+    span Datos Básicos
 
+  a(
+    href="/panel/barberos/ver/"+barberData.idBarbero+"?form=comisiones"
+    class= activeForm === 'comisiones' ? clActivo : clInactivo
+  )
+    span Comisiones
+
+  a(
+    href="/panel/barberos/ver/"+barberData.idBarbero+"?form=historial"
+    class= activeForm === 'historial' ? clActivo : clInactivo
+  )
+    span Historial
+
+  a(
+    href="/panel/barberos/ver/"+barberData.idBarbero+"?form=documentacion"
+    class= activeForm === 'documentacion' ? clActivo : clInactivo
+  )
+    span Documentación

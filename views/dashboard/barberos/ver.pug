@@ -18,5 +18,22 @@ block content
 
         // ================= TARJETA DERECHA =================
         aside(class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 min-h-[60vh] lg:col-span-3")
+            //BTNS NAVEGACION
             include ../../layout/navBarberos.pug
-            include ../../layout/datosBarbero.pug
+            
+            //Cargo formulario de barbero
+            if mostrarComisiones == true
+                 include ../../dashboard/barberos/verComisiones.pug
+            
+            else if mostrarHistorial == true
+                 include ../../dashboard/barberos/verHistorialVentas.pug
+            
+            else if mostrarDocumentacion == true
+                 include ../../dashboard/barberos/verDocumentacion.pug
+            
+            else 
+                include ../../layout/datosBarbero.pug
+
+
+            
+            
