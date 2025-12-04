@@ -404,6 +404,9 @@
   .min-h-\[60vh\] {
     min-height: 60vh;
   }
+  .min-h-\[64vh\] {
+    min-height: 64vh;
+  }
   .min-h-\[300px\] {
     min-height: 300px;
   }
@@ -934,6 +937,9 @@
   }
   .text-white {
     color: var(--color-white);
+  }
+  .uppercase {
+    text-transform: uppercase;
   }
   .placeholder-gray-400 {
     &::placeholder {

@@ -1,0 +1,41 @@
+- const clActivo = "inline-flex flex-shrink-0 items-center gap-2 px-4 py-2 rounded-xl bg-green-500 text-white font-medium shadow-sm cursor-pointer"
+- const clInactivo = "inline-flex flex-shrink-0 items-center gap-2 px-4 py-2 rounded-xl bg-gray-200 text-gray-600 font-medium shadow-sm cursor-pointer"
+
+nav(class="flex items-center gap-4 border-b border-gray-100 pb-3 mb-4 text-sm")
+
+  // DATOS BÁSICOS (activo si activeForm === 'datos')
+  a(
+    href="/panel/puntosDeVenta/ver/"+datosPunto.idPuntoVenta+""
+    class= activeForm === 'datos' ? clActivo : clInactivo
+  )
+    span Datos Básicoss
+
+  a(
+    href="/panel/puntosDeVenta/ver/"+datosPunto.idPuntoVenta+"?form=ingresosServicios"
+    class= activeForm === 'ingresosServicios' ? clActivo : clInactivo
+  )
+    span Ingresos & Servicio
+
+  a(
+    href="/panel/puntosDeVenta/ver/"+datosPunto.idPuntoVenta+"?form=gastosCostos"
+    class= activeForm === 'gastosCostos' ? clActivo : clInactivo
+  )
+    span Gastos & Costos
+
+  a(
+    href="/panel/puntosDeVenta/ver/"+datosPunto.idPuntoVenta+"?form=inventarioProductos"
+    class= activeForm === 'inventarioProductos' ? clActivo : clInactivo
+  )
+    span Inventario & Productos
+
+  a(
+    href="/panel/puntosDeVenta/ver/"+datosPunto.idPuntoVenta+"?form=barberos"
+    class= activeForm === 'barberos' ? clActivo : clInactivo
+    )
+    span Barberos & Operación
+
+  a(
+    href="/panel/puntosDeVenta/ver/"+datosPunto.idPuntoVenta+"?form=cajaReportes"
+    class= activeForm === 'cajaReportes' ? clActivo : clInactivo
+    )
+    span Caja & Reportes
