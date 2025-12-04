@@ -449,14 +449,8 @@
   .h-full {
     height: 100%;
   }
-  .min-h-\[30vh\] {
-    min-height: 30vh;
-  }
   .min-h-\[60vh\] {
     min-height: 60vh;
-  }
-  .min-h-\[85vh\] {
-    min-height: 85vh;
   }
   .min-h-\[300px\] {
     min-height: 300px;
@@ -475,9 +469,6 @@
   }
   .w-2 {
     width: calc(var(--spacing) * 2);
-  }
-  .w-2\/3 {
-    width: calc(2/3 * 100%);
   }
   .w-2xs {
     width: var(--container-2xs);
@@ -577,9 +568,6 @@
   }
   .grid-cols-4 {
     grid-template-columns: repeat(4, minmax(0, 1fr));
-  }
-  .grid-cols-\[40px\,2fr\,1\.2fr\,1\.6fr\,1\.5fr\,40px\] {
-    grid-template-columns: 40px,2fr,1.2fr,1.6fr,1.5fr,40px;
   }
   .flex-col {
     flex-direction: column;
@@ -794,12 +782,6 @@
       background-color: color-mix(in oklab, var(--color-black) 50%, transparent);
     }
   }
-  .bg-black\/60 {
-    background-color: color-mix(in srgb, #000 60%, transparent);
-    @supports (color: color-mix(in lab, red, red)) {
-      background-color: color-mix(in oklab, var(--color-black) 60%, transparent);
-    }
-  }
   .bg-blue-600 {
     background-color: var(--color-blue-600);
   }
@@ -916,9 +898,6 @@
   }
   .py-1 {
     padding-block: calc(var(--spacing) * 1);
-  }
-  .py-1\.5 {
-    padding-block: calc(var(--spacing) * 1.5);
   }
   .py-2 {
     padding-block: calc(var(--spacing) * 2);
@@ -1180,13 +1159,6 @@
       }
     }
   }
-  .hover\:bg-blue-700 {
-    &:hover {
-      @media (hover: hover) {
-        background-color: var(--color-blue-700);
-      }
-    }
-  }
   .hover\:bg-gray-50 {
     &:hover {
       @media (hover: hover) {
@@ -1243,31 +1215,10 @@
       }
     }
   }
-  .hover\:bg-indigo-600 {
-    &:hover {
-      @media (hover: hover) {
-        background-color: var(--color-indigo-600);
-      }
-    }
-  }
-  .hover\:bg-indigo-700 {
-    &:hover {
-      @media (hover: hover) {
-        background-color: var(--color-indigo-700);
-      }
-    }
-  }
   .hover\:bg-red-100 {
     &:hover {
       @media (hover: hover) {
         background-color: var(--color-red-100);
-      }
-    }
-  }
-  .hover\:text-gray-600 {
-    &:hover {
-      @media (hover: hover) {
-        color: var(--color-gray-600);
       }
     }
   }
@@ -1278,23 +1229,11 @@
       }
     }
   }
-  .hover\:text-slate-800 {
-    &:hover {
-      @media (hover: hover) {
-        color: var(--color-slate-800);
-      }
-    }
-  }
   .hover\:text-white {
     &:hover {
       @media (hover: hover) {
         color: var(--color-white);
       }
-    }
-  }
-  .focus\:border-blue-500 {
-    &:focus {
-      border-color: var(--color-blue-500);
     }
   }
   .focus\:border-indigo-500 {
@@ -1311,16 +1250,6 @@
     &:focus {
       --tw-ring-shadow: var(--tw-ring-inset,) 0 0 0 calc(2px + var(--tw-ring-offset-width)) var(--tw-ring-color, currentcolor);
       box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
-    }
-  }
-  .focus\:ring-blue-500 {
-    &:focus {
-      --tw-ring-color: var(--color-blue-500);
-    }
-  }
-  .focus\:ring-indigo-400 {
-    &:focus {
-      --tw-ring-color: var(--color-indigo-400);
     }
   }
   .focus\:ring-indigo-500 {
@@ -1354,11 +1283,6 @@
       width: calc(var(--spacing) * 28);
     }
   }
-  .sm\:w-64 {
-    @media (width >= 40rem) {
-      width: calc(var(--spacing) * 64);
-    }
-  }
   .sm\:flex-1 {
     @media (width >= 40rem) {
       flex: 1;
@@ -1384,11 +1308,6 @@
       justify-content: space-between;
     }
   }
-  .sm\:gap-4 {
-    @media (width >= 40rem) {
-      gap: calc(var(--spacing) * 4);
-    }
-  }
   .sm\:p-6 {
     @media (width >= 40rem) {
       padding: calc(var(--spacing) * 6);
@@ -1397,11 +1316,6 @@
   .sm\:p-8 {
     @media (width >= 40rem) {
       padding: calc(var(--spacing) * 8);
-    }
-  }
-  .sm\:px-6 {
-    @media (width >= 40rem) {
-      padding-inline: calc(var(--spacing) * 6);
     }
   }
   .sm\:text-2xl {
@@ -1446,11 +1360,6 @@
       line-height: var(--tw-leading, var(--text-xs--line-height));
     }
   }
-  .md\:col-span-2 {
-    @media (width >= 48rem) {
-      grid-column: span 2 / span 2;
-    }
-  }
   .md\:grid-cols-2 {
     @media (width >= 48rem) {
       grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -1482,11 +1391,6 @@
       grid-column: span 1 / span 1;
     }
   }
-  .lg\:col-span-2 {
-    @media (width >= 64rem) {
-      grid-column: span 2 / span 2;
-    }
-  }
   .lg\:col-span-3 {
     @media (width >= 64rem) {
       grid-column: span 3 / span 3;
@@ -1502,44 +1406,14 @@
       width: calc(1/2 * 100%);
     }
   }
-  .lg\:grid-cols-3 {
-    @media (width >= 64rem) {
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-    }
-  }
   .lg\:grid-cols-4 {
     @media (width >= 64rem) {
       grid-template-columns: repeat(4, minmax(0, 1fr));
     }
   }
-  .lg\:grid-cols-\[320px\,1fr\] {
-    @media (width >= 64rem) {
-      grid-template-columns: 320px,1fr;
-    }
-  }
-  .lg\:grid-cols-\[340px\,1fr\] {
-    @media (width >= 64rem) {
-      grid-template-columns: 340px,1fr;
-    }
-  }
-  .lg\:grid-cols-\[360px\,1fr\] {
-    @media (width >= 64rem) {
-      grid-template-columns: 360px,1fr;
-    }
-  }
-  .lg\:grid-cols-\[minmax\(0\,320px\)\,minmax\(0\,1fr\)\] {
-    @media (width >= 64rem) {
-      grid-template-columns: minmax(0,320px),minmax(0,1fr);
-    }
-  }
   .lg\:flex-row {
     @media (width >= 64rem) {
       flex-direction: row;
-    }
-  }
-  .lg\:px-8 {
-    @media (width >= 64rem) {
-      padding-inline: calc(var(--spacing) * 8);
     }
   }
   .lg\:py-20 {
