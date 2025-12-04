@@ -1,6 +1,6 @@
 import express from "express";
-import {home, crearPuntosVentaPost, editarPuntosVenta,editarPuntosVentaPost, logOut} from "../controllers/dashboardControllers.js";
-import {crearPuntosVenta, loadDatospuntoVenta, listadoPuntosVenta} from "../controllers/puntoVentaControllers.js"
+import {home, crearPuntosVentaPost, editarPuntosVenta, logOut} from "../controllers/dashboardControllers.js";
+import {crearPuntosVenta, loadDatospuntoVenta, listadoPuntosVenta, editarPuntosVentaPost} from "../controllers/puntoVentaControllers.js"
 
 import {listadoBarberos,agregarBarberos,agregarBarberosPost, loadDatosBarbero, editoDatosBarbero} from "../controllers/barberosControllers.js"
 import {uploadFotoBarbero} from '../config/uploadBarberos.js'
@@ -17,7 +17,7 @@ route.get('/', home)
 route.get('/puntosDeVenta/ver/:idPuntoVenta', loadDatospuntoVenta)
 route.get('/puntosDeVenta', listadoPuntosVenta)
 route.get('/editarPunto/:idPuntoVenta', editarPuntosVenta )
-route.post('/editarPunto/:idPuntoVenta', editarPuntosVentaPost )
+route.post('/puntosDeVenta/ver/:idPuntoVenta', editarPuntosVentaPost )
 route.post('/puntos_de_venta', crearPuntosVentaPost)
 //FIN PUNTOS DE VENTA
 
