@@ -1,5 +1,4 @@
 import express from "express";
-const route = express.Router();
 import { check, validationResult } from "express-validator";
 import { Barbero, PuntosDeVenta } from "../models/index.js";
 import {obtenerListadoBarberias, obtenerListadoBarberos, obtenerCamposDuplicados, invalidaCacheListado} from '../services/puntosVentaService.js'
