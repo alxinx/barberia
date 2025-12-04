@@ -48,7 +48,6 @@ const Administrador = db.define('Administradores', {
             administrador.password = await bcrypt.hash(administrador.password, sailt);
         }
 
-
     }
 },
 )

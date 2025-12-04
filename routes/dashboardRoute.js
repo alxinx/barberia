@@ -4,7 +4,7 @@ import {home, crearPuntosVentaPost, editarPuntosVenta,editarPuntosVentaPost, log
 
 import {crearPuntosVenta, loadDatospuntoVenta, listadoPuntosVenta} from "../controllers/puntoVentaControllers.js"
 
-import {homeAdministrativo} from "../controllers/administrativoControllers.js"
+import {homeAdministrativo, datosAdminPost} from "../controllers/administrativoControllers.js"
 
 
 import {listadoBarberos,agregarBarberos,agregarBarberosPost, loadDatosBarbero, editoDatosBarbero} from "../controllers/barberosControllers.js"
@@ -41,7 +41,10 @@ route.post('/barberos/ver/:idBarbero', editoDatosBarbero)
 
 
 //ADMINISTRATIVOS
-route.get('/administrativo', homeAdministrativo)
+route.get('/administrativo', homeAdministrativo);
+
+
+route.post('/administrativo/', datosAdminPost );
 
 
 //ANOTHERS
