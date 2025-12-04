@@ -201,8 +201,6 @@ const loadDatosBarbero = async(req, res)=>{
     const listadoBarberias = await obtenerListadoBarberias();
     const idBarbero = req.params.idBarbero;
     const { form } = req.query;  
-    console.log('--------------------------[CHECK POINT 204]--------------------------')
-    console.log(form)
      const activeForm = form || 'datos'; 
     const barberData = await loadBarberData(idBarbero);
         return res.status(400).render('../views/dashboard/barberos/ver', {
