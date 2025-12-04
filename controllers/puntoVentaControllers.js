@@ -34,14 +34,23 @@ const listadoPuntosVenta = async (req,res)=>{
 
 const loadDatospuntoVenta = async (req,res)=>{
     const {idPuntoVenta} = req.params
+    const { form } = req.query; 
+     const activeForm = form || 'datos'; 
     const datosPunto = await PuntosDeVenta.findOne({where : { idPuntoVenta : idPuntoVenta}})
     res.status(201).render('../views/dashboard/puntosVenta/ver',{
         APPNAME : process.env.APP_NAME,
         csrfToken : req.csrfToken(),
-        titulo : 'Listado de puntos de venta',
-        subTitulo : 'Lista todos los puntos de venta',
+        titulo : `Datos de ${datosPunto.nombre}`,
+        subTitulo : `Administra desde este panel lo relacionado con ${datosPunto.nombre}`,
         active: 'puntosventa',
-        datosPunto
+        datosPunto,
+        activeForm,
+        mostrarData : form === 'data',
+        ingresosServicios : form == 'ingresosServicios',
+        gastosCostos : form == 'gastosCostos',
+        inventarioProductos : form == 'inventarioProductos',
+        barberos : form == 'barberos',
+        cajaReportes : form == 'cajaReportes',
     })
 }
 export {
