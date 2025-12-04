@@ -3,8 +3,10 @@
 div(class="flex flex-col items-center text-center")
     div(class="w-24 h-24 sm:w-28 sm:h-28 rounded-full shadow-gray-900 shadow overflow-hidden bg-green-100 mb-4")
             img(src="/images/avatar/ec1e0bce-e592-431e-8834-bc78b4196a78.png" alt="Profile" class="w-full h-full object-cover")
-    
+div(class="mt-6 border-t border-gray-200 pt-4 space-y-1 text-[13px] sm:text-sm")
+    h3(class="text-[20px] font-semibold tracking-wide text-gray-600 mb-1 text-center uppercase")=datosPunto.nombre
 div(class="mt-5 grid grid-cols-2 gap-3 w-full")
+
     div(class="flex flex-col items-center justify-center rounded-xl bg-green-50 py-3")
         span(class="text-base sm:text-lg font-semibold text-green-500") 1.23k
         span(class="text-[11px] sm:text-xs text-slate-500") Caja del Mes
@@ -18,15 +20,15 @@ div(class="mt-6 border-t border-gray-200 pt-4 space-y-1 text-[13px] sm:text-sm")
           
     p(class="mt-3")
       span(class="font-semibold text-slate-700") NIT:
-      span(class="ml-1 text-gray-500")
+      span(class="ml-1 text-gray-500")=datosPunto.nit
           
     p(class="mt-3")
       span(class="font-semibold text-slate-700") Whatsapp/celular:
-      span(class="ml-1 text-gray-500")
+      span(class="ml-1 text-gray-500")=datosPunto.WhatsApp
 
     p(class="mt-3")
       span(class="font-semibold text-slate-700") Email:
-      span(class="ml-1 text-gray-500 pl-2")
+      span(class="ml-1 text-gray-500 pl-2")=datosPunto.email
 
     p(class="mt-3")
       span(class="font-semibold text-slate-700") Nro Barberos:

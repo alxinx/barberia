@@ -5,37 +5,37 @@ nav(class="flex items-center gap-4 border-b border-gray-100 pb-3 mb-4 text-sm")
 
   // DATOS BÁSICOS (activo si activeForm === 'datos')
   a(
-    href="/panel/puntosDeVenta/"
+    href="/panel/puntosDeVenta/ver/"+datosPunto.idPuntoVenta+""
     class= activeForm === 'datos' ? clActivo : clInactivo
   )
-    span Datos Básicos
+    span Datos Básicoss
 
   a(
-    href="/panel/puntosDeVenta/?form=ingresosServicios"
+    href="/panel/puntosDeVenta/ver/"+datosPunto.idPuntoVenta+"?form=ingresosServicios"
     class= activeForm === 'ingresosServicios' ? clActivo : clInactivo
   )
-    span Ingresos & Servicios
+    span Ingresos & Servicio
 
   a(
-    href="/panel/puntosDeVenta/?form=gastosCostos"
+    href="/panel/puntosDeVenta/ver/"+datosPunto.idPuntoVenta+"?form=gastosCostos"
     class= activeForm === 'gastosCostos' ? clActivo : clInactivo
   )
     span Gastos & Costos
 
   a(
-    href="/panel/puntosDeVenta/?form=inventarioProductos"
+    href="/panel/puntosDeVenta/ver/"+datosPunto.idPuntoVenta+"?form=inventarioProductos"
     class= activeForm === 'inventarioProductos' ? clActivo : clInactivo
   )
     span Inventario & Productos
 
   a(
-    href="/panel/puntosDeVenta/?form=barberos"
+    href="/panel/puntosDeVenta/ver/"+datosPunto.idPuntoVenta+"?form=barberos"
     class= activeForm === 'barberos' ? clActivo : clInactivo
     )
     span Barberos & Operación
 
   a(
-    href="/panel/puntosDeVenta/?form=cajaReportes"
+    href="/panel/puntosDeVenta/ver/"+datosPunto.idPuntoVenta+"?form=cajaReportes"
     class= activeForm === 'cajaReportes' ? clActivo : clInactivo
     )
     span Caja & Reportes
