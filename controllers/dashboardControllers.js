@@ -1,6 +1,3 @@
-import jwt from "jsonwebtoken";
-import csrf from "csurf";
-import dotenv, { config } from 'dotenv';
 import { check, validationResult } from "express-validator";
 import { Op } from "sequelize";
 
@@ -17,22 +14,6 @@ const home = (req,res)=>{
 } 
 
 
-const listadoPuntosVenta = async (req,res)=>{
-    
-
-    const [listadoPuntosVenta] = await Promise.all([
-        PuntosDeVenta.findAll()
-    ])
-    //res.status(201).render('../views/dashboard/listaPuntoVenta',{
-    res.status(201).render('../views/dashboard/puntosVenta/ver',{
-        APPNAME : process.env.APP_NAME,
-        csrfToken : req.csrfToken(),
-        titulo : 'Listado de puntos de venta',
-        subTitulo : 'Lista todos los puntos de venta',
-        active: 'puntosventa',
-        listadoPuntosVenta
-    })
-}
 
 
 
@@ -479,5 +460,5 @@ const logOut = (req, res)=>{
 
 
 export {
-    home, logOut, crearPuntosVenta, crearPuntosVentaPost, listadoPuntosVenta, editarPuntosVenta, editarPuntosVentaPost
+    home, logOut, crearPuntosVenta, crearPuntosVentaPost, editarPuntosVenta, editarPuntosVentaPost
 }
