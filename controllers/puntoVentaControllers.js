@@ -21,7 +21,7 @@ const listadoPuntosVenta = async (req,res)=>{
     const [listadoPuntosVenta] = await Promise.all([
         PuntosDeVenta.findAll()
     ])
-    res.status(201).render('../views/dashboard/puntosVenta/ver',{
+    res.status(201).render('../views/dashboard/puntosVenta/listaPuntoVenta',{
         APPNAME : process.env.APP_NAME,
         csrfToken : req.csrfToken(),
         titulo : 'Listado de puntos de venta',
@@ -32,15 +32,18 @@ const listadoPuntosVenta = async (req,res)=>{
 }
 
 
-const homePuntosVenta = async (req,res)=>{
+const loadDatospuntoVenta = async (req,res)=>{
+    const {idPuntoVenta} = req.params
+    const datosPunto = await PuntosDeVenta.findOne({where : { idPuntoVenta : idPuntoVenta}})
     res.status(201).render('../views/dashboard/puntosVenta/ver',{
         APPNAME : process.env.APP_NAME,
         csrfToken : req.csrfToken(),
         titulo : 'Listado de puntos de venta',
         subTitulo : 'Lista todos los puntos de venta',
         active: 'puntosventa',
+        datosPunto
     })
 }
 export {
-    crearPuntosVenta, listadoPuntosVenta, homePuntosVenta
+    crearPuntosVenta, listadoPuntosVenta, loadDatospuntoVenta
 }
