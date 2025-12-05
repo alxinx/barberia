@@ -1,17 +1,19 @@
-import express from "express";
 import bcrypt from "bcrypt";
 import { check, validationResult } from "express-validator";
 import { Op } from "sequelize";
+import { money } from "../helpers/formatMoney.js"
+
 import Administrador from "../models/Administrador.js"
-
-
+import {ProductosServicios   } from "../models/index.js";
 
 
 const homeAdministrativo = async (req,res)=>{
     
     const datosAdmin =  await Administrador.findOne();
+    const listaProductos =await ProductosServicios.findAll()
     const { form } = req.query; 
     const activeForm = form || 'datos'; 
+        
     res.status(201).render('../views/dashboard/administrativo/ver',{
         APPNAME : process.env.APP_NAME,
         csrfToken : req.csrfToken(),
@@ -25,10 +27,13 @@ const homeAdministrativo = async (req,res)=>{
             email : datosAdmin.email,
         },
         activeForm,
+        listaProductos,
         mostrarData : form === 'data',
         mostrarComisiones : form === 'comisiones',
         mostrarHistorial : form === 'historial',
         mostrarDocumentacion : form === 'documentacion',
+        //Funciones:
+        money
 
     })
 }
@@ -40,6 +45,8 @@ const homeAdministrativo = async (req,res)=>{
 const datosAdminPost = async (req, res)=>{
 
     const { nombre, email, password, idAdministrador } = req.body;
+    const { form } = req.query; 
+    const activeForm = form || 'datos';
 
     await check('nombre')
     .trim()
@@ -99,6 +106,11 @@ const datosAdminPost = async (req, res)=>{
         email,
         }, 
         errs : errsPorCampo,
+        activeForm,
+        mostrarData : form === 'data',
+        mostrarComisiones : form === 'comisiones',
+        mostrarHistorial : form === 'historial',
+        mostrarDocumentacion : form === 'documentacion',
     });
     }
     //Fin validación de errores de llenado de campos
@@ -134,6 +146,11 @@ const datosAdminPost = async (req, res)=>{
         errores : [{
             msg : 'El correo electronico ya esta registrado con otro usuario'
         }],
+        activeForm,
+        mostrarData : form === 'data',
+        mostrarComisiones : form === 'comisiones',
+        mostrarHistorial : form === 'historial',
+        mostrarDocumentacion : form === 'documentacion',
         });
     }
     
@@ -148,6 +165,7 @@ const datosAdminPost = async (req, res)=>{
 
     administrador.save();
     const datosAdmin =  await Administrador.findOne();
+    
     return res.status(400).render('../views/dashboard/administrativo/ver', {
 
         APPNAME : process.env.APP_NAME,
@@ -163,10 +181,19 @@ const datosAdminPost = async (req, res)=>{
         success : [{
             msg : 'Listo, edité los datos con éxito'
         }],
+        activeForm,
+        mostrarData : form === 'data',
+        mostrarComisiones : form === 'comisiones',
+        mostrarHistorial : form === 'historial',
+        mostrarDocumentacion : form === 'documentacion',
+        
         btn : 'EDITAR OTRA VEZ.'})
 
     
 }
+
+
+
 
 export {
     homeAdministrativo, datosAdminPost
