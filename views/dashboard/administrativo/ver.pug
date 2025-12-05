@@ -11,16 +11,27 @@ block content
       div(class="grid grid-cols-1 lg:grid-cols-4 gap-6 w-full bg-[#FBFAFF] mt-3")
 
         // ================= TARJETA IZQUIERDA =================
-        aside(class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 min-h-[64vh] lg:col-span-1")
-            //include ../../layout/tarjetaBarbero.pug
-
+        aside(class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 min-h-[20vh] lg:col-span-1")
+            
+            if activeForm === 'datos'
+              include ./cardIndicadoresBasicos.pug
+          
         // ================= TARJETA DERECHA =================
         aside(class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 min-h-[60vh] lg:col-span-3")
             //BTNS NAVEGACION
             include ./navAdministrador.pug
             
             //Cargo formulario de administrador
-            include ./formAdmin.pug
+            if activeForm === 'comisiones'
+              include ./comisiones.pug
+            else if activeForm === 'informes'
+              include ./informes.pug
+            
+            else if activeForm === 'productosyservicios'
+              include ./productosServicios.pug
+
+            else
+              include ./formAdmin.pug
             
 
             
