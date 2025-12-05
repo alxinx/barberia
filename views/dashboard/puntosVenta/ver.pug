@@ -1,0 +1,24 @@
+extends ../../layout/headerDashboard.pug
+
+block styles
+
+block content
+  main(class="min-h-screen bg-[#F5F7F4] flex")
+    include ../../layout/leftMenu.pug
+
+    section(class="flex-1 p-10")
+      include ../../layout/header-body.pug
+      include ../../layout/headerPuntosVenta.pug
+      // CONTENEDOR PRINCIPAL
+      div(class="grid grid-cols-1 lg:grid-cols-4 gap-6 w-full bg-[#FBFAFF] mt-3")
+
+        // ================= TARJETA IZQUIERDA =================
+        aside(class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 min-h-[64vh] lg:col-span-1")
+            include ./tarjetaPuntoVenta.pug
+
+        // ================= TARJETA DERECHA =================
+        aside(class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 min-h-[60vh] lg:col-span-3")
+            include ./navPuntosVenta.pug
+
+            if gastosCostos == true 
+              p gastos y costos

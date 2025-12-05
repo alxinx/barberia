@@ -1,5 +1,11 @@
 import express from "express";
-import {home, crearPuntosVenta, crearPuntosVentaPost, listadoPuntosVenta, editarPuntosVenta,editarPuntosVentaPost, logOut} from "../controllers/dashboardControllers.js";
+
+import {home, crearPuntosVentaPost, editarPuntosVenta,editarPuntosVentaPost, logOut} from "../controllers/dashboardControllers.js";
+
+import {crearPuntosVenta, loadDatospuntoVenta, listadoPuntosVenta} from "../controllers/puntoVentaControllers.js"
+
+import {homeAdministrativo, datosAdminPost} from "../controllers/administrativoControllers.js"
+
 
 import {listadoBarberos,agregarBarberos,agregarBarberosPost, loadDatosBarbero, editoDatosBarbero} from "../controllers/barberosControllers.js"
 import {uploadFotoBarbero} from '../config/uploadBarberos.js'
@@ -12,8 +18,9 @@ route.get('/', home)
 
 
 //PUNTOS DE VENTA
-route.get('/puntos_de_venta', crearPuntosVenta)
-route.get('/listadoPuntosVenta', listadoPuntosVenta)
+//route.get('/puntos_de_venta', crearPuntosVenta)
+route.get('/puntosDeVenta/ver/:idPuntoVenta', loadDatospuntoVenta)
+route.get('/puntosDeVenta', listadoPuntosVenta)
 route.get('/editarPunto/:idPuntoVenta', editarPuntosVenta )
 route.post('/editarPunto/:idPuntoVenta', editarPuntosVentaPost )
 route.post('/puntos_de_venta', crearPuntosVentaPost)
@@ -27,15 +34,17 @@ route.post('/puntos_de_venta', crearPuntosVentaPost)
 route.get('/barberos', listadoBarberos)
 route.get('/nuevoBarbero', uploadFotoBarbero.single('foto'), agregarBarberos)
 route.get('/barberos/ver/:idBarbero', loadDatosBarbero )
-
-
-
-
 route.post('/nuevoBarbero',agregarBarberosPost);
 route.post('/barberos/ver/:idBarbero', editoDatosBarbero)
 
 
 
+
+//ADMINISTRATIVOS
+route.get('/administrativo', homeAdministrativo);
+
+
+route.post('/administrativo/', datosAdminPost );
 
 
 //ANOTHERS

@@ -1,6 +1,3 @@
-import jwt from "jsonwebtoken";
-import csrf from "csurf";
-import dotenv, { config } from 'dotenv';
 import { check, validationResult } from "express-validator";
 import { Op } from "sequelize";
 
@@ -17,21 +14,6 @@ const home = (req,res)=>{
 } 
 
 
-const listadoPuntosVenta = async (req,res)=>{
-    
-
-    const [listadoPuntosVenta] = await Promise.all([
-        PuntosDeVenta.findAll()
-    ])
-    res.status(201).render('../views/dashboard/listaPuntoVenta',{
-        APPNAME : process.env.APP_NAME,
-        csrfToken : req.csrfToken(),
-        titulo : 'Listado de puntos de venta',
-        subTitulo : 'Lista todos los puntos de venta',
-        active: 'puntosventa',
-        listadoPuntosVenta
-    })
-}
 
 
 
@@ -61,7 +43,7 @@ const editarPuntosVenta  = async (req, res)=>{
     }
 
 
-   return res.status(201).render('../views/dashboard/editarPunto', {
+   return res.status(201).render('../views/dashboard/puntosVenta/editarPunto', {
         
         APPNAME : process.env.APP_NAME,
         csrfToken : req.csrfToken(),
@@ -170,7 +152,7 @@ const editarPuntosVentaPost = async (req,res)=>{
 
 
     if(!resultado.isEmpty()){
-            return res.status(201).render('../views/dashboard/editarPunto', {
+            return res.status(201).render('../views/dashboard/puntosVenta/editarPunto', {
             APPNAME : process.env.APP_NAME,
             csrfToken : req.csrfToken(),
             titulo : 'Edita punto de venta',
@@ -223,7 +205,7 @@ const editarPuntosVentaPost = async (req,res)=>{
             camposDuplicados.push("Email")
         }
 
-        return res.status(201).render('../views/dashboard/editarPunto', {
+            return res.status(201).render('../views/dashboard/puntosVenta/editarPunto', {
             APPNAME : process.env.APP_NAME,
             csrfToken : req.csrfToken(),
             titulo : 'Editar punto de venta',
@@ -263,7 +245,7 @@ const editarPuntosVentaPost = async (req,res)=>{
 
     puntoVenta.save()
     //Success
-    return res.status(201).render('../views/dashboard/editarPunto', {
+        return res.status(201).render('../views/dashboard/puntosVenta/editarPunto', {
         APPNAME : process.env.APP_NAME,
         csrfToken : req.csrfToken(),
         titulo : 'Editar punto de venta',
@@ -456,10 +438,6 @@ const crearPuntosVentaPost = async (req, res)=>{
             btn : 'GUARDAR'
         
         })
-
-      
-
-
     }
 
 
@@ -482,5 +460,5 @@ const logOut = (req, res)=>{
 
 
 export {
-    home, logOut, crearPuntosVenta, crearPuntosVentaPost, listadoPuntosVenta, editarPuntosVenta, editarPuntosVentaPost
+    home, logOut, crearPuntosVenta, crearPuntosVentaPost, editarPuntosVenta, editarPuntosVentaPost
 }

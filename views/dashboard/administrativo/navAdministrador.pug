@@ -1,0 +1,29 @@
+- const clActivo = "inline-flex flex-shrink-0 items-center gap-2 px-4 py-2 rounded-xl bg-green-500 text-white font-medium shadow-sm cursor-pointer"
+- const clInactivo = "inline-flex flex-shrink-0 items-center gap-2 px-4 py-2 rounded-xl bg-gray-200 text-gray-600 font-medium shadow-sm cursor-pointer"
+
+nav(class="flex items-center gap-4 border-b border-gray-100 pb-3 mb-4 text-sm")
+
+  // DATOS BÁSICOS (activo si activeForm === 'datos')
+  a(
+    href="/panel/administrativo/"
+    class= activeForm === 'datos' ? clActivo : clInactivo
+  )
+    span Datos Básicos
+
+  a(
+    href="/panel/administrativo/?form=comisiones"
+    class= activeForm === 'productosyservicios' ? clActivo : clInactivo
+  )
+    span Productos y Servicios
+
+  a(
+    href="/panel/administrativo/?form=historial"
+    class= activeForm === 'comisiones' ? clActivo : clInactivo
+  )
+    span Comisiones
+
+  a(
+    href="/panel/administrativo/?form=documentacion"
+    class= activeForm === 'informes' ? clActivo : clInactivo
+  )
+    span Informes
