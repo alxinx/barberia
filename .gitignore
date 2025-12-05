@@ -1,2 +1,5 @@
 node_modules
 .env
+/public/output.css
+/public/output.css.map
+/public/*.min.css
