@@ -30,11 +30,10 @@ aside(class="w-64 bg-white border-r border-gray-200 p-6 flex flex-col justify-be
                 span Clientes
 
             // Administración
-        a(href="/panel/administracion") 
-            div(class="flex items-center gap-3 text-gray-700")
-                div(class="w-4 h-4 rounded-md bg-[#C9E4CA]")
-                span Administración
-                div(class="text-[#2CA58D] text-lg ml-auto") ➜
+        a(href="/panel/administrativo") 
+             div( class= active === 'administrativo' ? "flex items-center gap-3 bg-[#C9E4CA] text-[#234E52] px-3 py-2 rounded-xl font-semibold cursor-pointer" : "flex items-center gap-3 text-gray-700 px-3 py-2 rounded-xl cursor-pointer hover:bg-gray-100")
+                span Administrativo 
+                    div(class="text-[#2CA58D] text-lg ml-auto") ➜
 
 
         // Submenú
