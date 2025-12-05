@@ -2,14 +2,16 @@ import express from "express";
 import bcrypt from "bcrypt";
 import { check, validationResult } from "express-validator";
 import { Op } from "sequelize";
- 
-
 import Administrador from "../models/Administrador.js"
+
+
+
 
 const homeAdministrativo = async (req,res)=>{
     
     const datosAdmin =  await Administrador.findOne();
-   
+    const { form } = req.query; 
+    const activeForm = form || 'datos'; 
     res.status(201).render('../views/dashboard/administrativo/ver',{
         APPNAME : process.env.APP_NAME,
         csrfToken : req.csrfToken(),
@@ -21,7 +23,13 @@ const homeAdministrativo = async (req,res)=>{
             idAdministrador : datosAdmin.idAdministrador,
             nombre : datosAdmin.nombre,
             email : datosAdmin.email,
-        }
+        },
+        activeForm,
+        mostrarData : form === 'data',
+        mostrarComisiones : form === 'comisiones',
+        mostrarHistorial : form === 'historial',
+        mostrarDocumentacion : form === 'documentacion',
+
     })
 }
 

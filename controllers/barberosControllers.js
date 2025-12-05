@@ -200,8 +200,6 @@ const loadDatosBarbero = async(req, res)=>{
     const listadoBarberias = await obtenerListadoBarberias();
     const idBarbero = req.params.idBarbero;
     const { form } = req.query;  
-    console.log('--------------------------[CHECK POINT 204]--------------------------')
-    console.log(form)
      const activeForm = form || 'datos'; 
     const barberData = await loadBarberData(idBarbero);
         return res.status(400).render('../views/dashboard/barberos/ver', {
@@ -214,9 +212,9 @@ const loadDatosBarbero = async(req, res)=>{
         listadoBarberias,
         activeForm,
         mostrarData : form === 'data',
-        mostrarComisiones : form === 'comisiones',
-        mostrarHistorial : form === 'historial',
-        mostrarDocumentacion : form === 'documentacion',
+        productosyservicios : form === 'productosyservicios',
+        comisiones : form === 'comisiones',
+        informes : form === 'informes',
         btn : 'EDITAR '
     })
     
@@ -309,6 +307,11 @@ const editoDatosBarbero = async (req, res)=>{
             direccionBarbero: direccionBarbero,
             ciudad : ciudad,
         },
+        activeForm,
+        mostrarData : form === 'data',
+        productosyservicios : form === 'productosyservicios',
+        comisiones : form === 'comisiones',
+        informes : form === 'informes',
         btn : 'VOLVER A EDITAR',
         })
     }
@@ -333,6 +336,11 @@ const editoDatosBarbero = async (req, res)=>{
             barberData,
             errs: duplicadosObj,   // 👈 ENVÍAS LOS DUPLICADOS
             usuario: req.body,
+             activeForm,
+            mostrarData : form === 'data',
+            productosyservicios : form === 'productosyservicios',
+            comisiones : form === 'comisiones',
+            informes : form === 'informes',
             btn: 'VOLVER A EDITAR'
         });
     }
@@ -367,9 +375,13 @@ const editoDatosBarbero = async (req, res)=>{
         success : [
             {msg : `${nombreBarbero}. Fue editado con éxito.🙂`}
         ],
+         activeForm,
+        mostrarData : form === 'data',
+        productosyservicios : form === 'productosyservicios',
+        comisiones : form === 'comisiones',
+        informes : form === 'informes',
         btn : 'VOLVER A EDITAR '
     })
-    //res.redirect('/panel/barberos/')
 }//FIN EDICION DE DATO USUARIO
 
 
