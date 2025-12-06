@@ -1,6 +1,9 @@
 import Barbero from "./Barbero.js";
 import PuntosDeVenta from "./PuntosDeVenta.js";
-import Administrador from './Administrador.js';  "./Administrador.js";
+import Administrador from './Administrador.js';
+import DisponibilidadProducto from './DisponibilidadProducto.js';
+import ProductosServicios from './ProductoServicio.js';
+import PreciosXPunto from './preciosProducto.js'
 
 
 PuntosDeVenta.hasMany(Barbero, {
@@ -16,8 +19,54 @@ Barbero.belongsTo(PuntosDeVenta, {
 });
 
 
+// Un producto tiene muchas disponibilidades
+ProductosServicios.hasMany(DisponibilidadProducto, { 
+  foreignKey: "idProductoServicio",
+  as : 'disponibilidades',
+});
+
+// Un producto tiene muchos precios por punto
+ProductosServicios.hasMany(PreciosXPunto, {
+  foreignKey : 'idProductoServicio',
+  as : 'preciosPorPunto',
+});
+
+// Cada precio por punto pertenece a un producto
+PreciosXPunto.belongsTo(ProductosServicios, {
+  foreignKey: "idProductoServicio",
+  as : 'producto',
+});
+
+// Cada disponibilidad pertenece a un producto
+DisponibilidadProducto.belongsTo(ProductosServicios, {
+  foreignKey: "idProductoServicio", 
+  as : 'producto',
+});
+
+
+
+PuntosDeVenta.hasMany(DisponibilidadProducto, {
+    foreignKey: "idPuntoVenta",
+    as : 'preciosPorPunto'
+  });
+  
+DisponibilidadProducto.belongsTo(PuntosDeVenta, {
+    foreignKey: "idPuntoVenta",
+    as : 'puntoDeVenta' 
+  })
+
+
+
+
+
+
+
+
     export {
         Barbero,
         PuntosDeVenta,
-        Administrador
+        Administrador,
+        DisponibilidadProducto,
+        ProductosServicios,
+        PreciosXPunto
     }

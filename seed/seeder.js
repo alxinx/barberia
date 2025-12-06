@@ -4,7 +4,7 @@ import Cliente from '../models/Cliente.js'
 import clientes from './clientes.js'
 import barberos from './barberos.js';
 
-import {Barbero, PuntosDeVenta} from "../models/index.js"
+import {PreciosXPunto} from "../models/index.js"
 
 
 import db from '../config/db.js';
@@ -18,13 +18,10 @@ const importarDatos = async () => {
        //Genero Columnas
         await db.sync(); 
 
-
-        await Promise.all(
-            [   Barbero.bulkCreate(barberos),
-
-            ],
+        await PreciosXPunto.create()
+       
     
-        )
+       
         console.log('Datos Importados')
         process.exit(0);
 
