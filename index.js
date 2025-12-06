@@ -14,7 +14,8 @@ const port = process.env.APP_PORT;
 const upload = multer();
 
 try {
-    db.sync()
+    db.sync();
+    //db.sync({force : true})
     await db.authenticate();
     console.log('Conection Success')
 } catch (error) {

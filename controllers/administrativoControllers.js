@@ -11,9 +11,9 @@ const homeAdministrativo = async (req,res)=>{
     
     const datosAdmin =  await Administrador.findOne();
     const listaProductos =await ProductosServicios.findAll()
-    const { form } = req.query; 
+    const { form, producto } = req.query; 
     const activeForm = form || 'datos'; 
-        
+    const nuevo = producto;        
     res.status(201).render('../views/dashboard/administrativo/ver',{
         APPNAME : process.env.APP_NAME,
         csrfToken : req.csrfToken(),
@@ -27,6 +27,7 @@ const homeAdministrativo = async (req,res)=>{
             email : datosAdmin.email,
         },
         activeForm,
+        nuevo,
         listaProductos,
         mostrarData : form === 'data',
         mostrarComisiones : form === 'comisiones',

@@ -23,14 +23,20 @@ block content
             //BTNS NAVEGACION
             include ./navAdministrador.pug
             
+            
             //Cargo formulario de administrador
             if activeForm === 'comisiones'
               include ./comisiones.pug
             else if activeForm === 'informes'
               include ./informes.pug
             
-            else if activeForm === 'productosyservicios'
-              include ./productosServicios.pug
+            else if activeForm == 'productosyservicios' & nuevo !=   'new'
+                include ./productosServicios.pug
+            
+            else if activeForm === 'productosyservicios'  & nuevo ===   'new'
+              h2(class="text-lg font-semibold text-slate-800 mb-3 pb-3 ") Nuevo Producto/Servicio
+                include ./formProductosServicios.pug
+
 
             else
               include ./formAdmin.pug
