@@ -40,16 +40,9 @@ div(class="mt-6 border-t border-gray-200 pt-4 space-y-1 text-[13px] sm:text-sm")
 
     p(class="mt-3")
       span(class="font-semibold text-slate-700") Posición:
-      span(class="ml-1 text-gray-500") Barbero
+      span(class="ml-1 text-gray-500")=barberData.tipoEmpleado
           
-    p(class="mt-3")
-      span(class="font-semibold text-slate-700") Estado:
-      span(class="ml-1 text-gray-500")
-        if barberData.idBarberia === true
-          span Si
-        else 
-          span No
-
+   
     
     p(class="mt-3")
       span(class="font-semibold text-slate-700") Inicio de labores:

@@ -100,7 +100,7 @@ const agregarBarberosPost = async (req, res) => {
             .run(req);
 
 
-    const {nombreBarbero, apellidoBarbero,identificacionBarbero, email, whatsApp, activo,direccionBarbero, ciudad,comision, idBarberia, foto} = req.body
+    const {nombreBarbero, apellidoBarbero,tipoEmpleado,identificacionBarbero, email, whatsApp, activo,direccionBarbero, ciudad,comision, idBarberia, foto} = req.body
     
 
     let resultados = validationResult(req);
@@ -170,10 +170,9 @@ const agregarBarberosPost = async (req, res) => {
 
 
     //Procedo a guardar al barbero :)
-    console.log(`Foto: ${foto}`)
     invalidaCacheListado();
     await Barbero.create({
-        nombreBarbero, apellidoBarbero,identificacionBarbero, email, whatsApp, activo,direccionBarbero, ciudad,comision, idBarberia
+        nombreBarbero, apellidoBarbero,identificacionBarbero, email, whatsApp, activo, tipoEmpleado, direccionBarbero, ciudad,comision, idBarberia
     })
 
     
@@ -270,7 +269,7 @@ const editoDatosBarbero = async (req, res)=>{
             .run(req);
 
 
-    const {nombreBarbero, apellidoBarbero,identificacionBarbero, email, whatsApp, activo,direccionBarbero, ciudad, idBarbero, idBarberia, foto} = req.body
+    const {nombreBarbero, apellidoBarbero,identificacionBarbero, email, whatsApp, activo, tipoEmpleado, direccionBarbero, ciudad, idBarbero, idBarberia, foto} = req.body
     const barberData = await loadBarberData(idBarbero);
 
 
@@ -308,6 +307,7 @@ const editoDatosBarbero = async (req, res)=>{
             activo : activo,
             direccionBarbero: direccionBarbero,
             ciudad : ciudad,
+            tipoEmpleado : tipoEmpleado
         },
         btn : 'VOLVER A EDITAR',
         })
@@ -339,7 +339,6 @@ const editoDatosBarbero = async (req, res)=>{
 
     //Edito los datos del usuario
     const edicion = await Barbero.findByPk(idBarbero)
-    console.log('--------------------------[CHECK POINT 336]--------------------------')
     console.log(`Dato activo: ${barberData.activo}`)
 
     edicion.nombreBarbero = nombreBarbero;
@@ -351,6 +350,7 @@ const editoDatosBarbero = async (req, res)=>{
     edicion.idBarberia = idBarberia
     edicion.direccionBarbero= direccionBarbero;
     edicion.ciudad = ciudad;
+    edicion.tipoEmpleado = tipoEmpleado
     edicion.save()
     
     invalidaCacheListado(); //Limpio el cache del listado,
