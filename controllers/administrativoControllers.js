@@ -4,13 +4,13 @@ import { Op } from "sequelize";
 import { money } from "../helpers/formatMoney.js"
 
 import Administrador from "../models/Administrador.js"
-import {ProductosServicios   } from "../models/index.js";
+import {ProductosServicios, PuntosDeVenta   } from "../models/index.js";
 
 
 const homeAdministrativo = async (req,res)=>{
-    
     const datosAdmin =  await Administrador.findOne();
     const listaProductos =await ProductosServicios.findAll()
+    const listaPuntosVenta = await PuntosDeVenta.findAll()
     const { form, producto } = req.query; 
     const activeForm = form || 'datos'; 
     const nuevo = producto;        
@@ -29,18 +29,86 @@ const homeAdministrativo = async (req,res)=>{
         activeForm,
         nuevo,
         listaProductos,
+        listaPuntosVenta,
         mostrarData : form === 'data',
         mostrarComisiones : form === 'comisiones',
         mostrarHistorial : form === 'historial',
         mostrarDocumentacion : form === 'documentacion',
         //Funciones:
-        money
-
+        money   
     })
 }
 
 
+//CARGAR PAGINA PRODUCTOS Y SERVICIOS
+const administrativoProductosServicios = async(req,res)=>{
+    
+    const listaProductos =await ProductosServicios.findAll();
 
+     res.status(201).render('../views/dashboard/administrativo/verProductosServicios',{
+        APPNAME : process.env.APP_NAME,
+        csrfToken : req.csrfToken(),
+        titulo : 'Panel Administrativo',
+        subTitulo : 'Productos y Servicios',
+        active: 'administrativo',
+        listaProductos,
+        activeForm : 'productosyservicios'
+     })
+
+}
+
+
+const administrativoNuevoProductoServicio = async(req,res)=>{
+    
+    const listaProductos =await ProductosServicios.findAll();
+    const listaPuntosVenta = await PuntosDeVenta.findAll()
+
+    res.status(201).render('../views/dashboard/administrativo/nuevoProductoServicio',{
+        APPNAME : process.env.APP_NAME,
+        csrfToken : req.csrfToken(),
+        titulo : 'Panel Administrativo',
+        subTitulo : 'Ingresar un nuevo productos y servicios',
+        active: 'administrativo',
+        listaProductos,
+        listaPuntosVenta,
+        activeForm : 'productosyservicios'
+     })
+
+}
+
+
+
+
+
+
+
+//CARGAR PAGINA COMISIONES
+const administrativoComisiones = async(req,res)=>{
+    
+     res.status(201).render('../views/dashboard/administrativo/verComisiones',{
+        APPNAME : process.env.APP_NAME,
+        csrfToken : req.csrfToken(),
+        titulo : 'Panel Administrativo',
+        subTitulo : 'Comisiones',
+        active: 'administrativo',
+        activeForm : 'comisiones'
+     })
+
+}
+
+
+const administrativoInformes = async(req,res)=>{
+    
+     res.status(201).render('../views/dashboard/administrativo/verInformes',{
+        APPNAME : process.env.APP_NAME,
+        csrfToken : req.csrfToken(),
+        titulo : 'Panel Administrativo',
+        subTitulo : 'Informes',
+        active: 'administrativo',
+        activeForm : 'informes'
+     })
+
+}
 
 //ACTUALIZAR DATOS ADMIN
 const datosAdminPost = async (req, res)=>{
@@ -194,8 +262,11 @@ const datosAdminPost = async (req, res)=>{
 }
 
 
-
-
 export {
-    homeAdministrativo, datosAdminPost
+    homeAdministrativo,
+    datosAdminPost,
+    administrativoProductosServicios,
+    administrativoNuevoProductoServicio,
+    administrativoComisiones, 
+    administrativoInformes
 }
