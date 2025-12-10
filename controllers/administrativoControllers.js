@@ -7,6 +7,11 @@ import Administrador from "../models/Administrador.js"
 import {ProductosServicios, PuntosDeVenta   } from "../models/index.js";
 
 
+
+//=====================================================================================//
+//=====================================[GET METH]=====================================//
+//=====================================================================================//
+
 const homeAdministrativo = async (req,res)=>{
     const datosAdmin =  await Administrador.findOne();
     const listaProductos =await ProductosServicios.findAll()
@@ -109,6 +114,11 @@ const administrativoInformes = async(req,res)=>{
      })
 
 }
+
+
+//=====================================================================================//
+//=====================================[POST METH]=====================================//
+//=====================================================================================//
 
 //ACTUALIZAR DATOS ADMIN
 const datosAdminPost = async (req, res)=>{
@@ -257,9 +267,102 @@ const datosAdminPost = async (req, res)=>{
         mostrarDocumentacion : form === 'documentacion',
         
         btn : 'EDITAR OTRA VEZ.'})
-
-    
 }
+
+const nuevoProductoServicio = async (req,res)=>{
+
+    const {nombreProducto,tipo,precioGlobal,esPrecioGlobal,activado, disponible, precioPorPunto } = req.body
+   // const activeForm = form || 'datos'; 
+   //console.log(disponible)
+   //console.log(precioPorPunto)
+
+    //VALIDACIÓN DE DATOS BÁSICOS.
+    await check('nombreProducto')
+        .notEmpty()
+        .withMessage('El producto o servicio necesita un nombre')
+        .run(req)
+    
+    await check('tipo')
+        .isIn(['Servicio', 'Producto'])
+        .withMessage('Debes decirme si es un Producto o Servicio')
+        .run(req)
+    
+    await check('precioGlobal')
+        .customSanitizer(
+            value =>{
+                if (!value) return value;
+                return  value.replace(/\./g, "") 
+            }
+        )
+        .isNumeric()
+        .withMessage('El precio debe ser numérico')
+        .run(req)
+    
+    await check('esPrecioGlobal')
+        .isIn(['Si', 'No'])
+        .withMessage('Solo puedes poner Si o No')
+        .run(req)
+    
+    if (esPrecioGlobal === 'No') {
+        await check('precioPorPunto.*')
+            .customSanitizer(value => {
+            if (!value) return value;
+            return String(value).replace(/\./g, "");
+            })
+            .isNumeric()
+            .withMessage('Debes ponerle el precio que va a tener en el punto de venta. ')
+            .run(req);
+        }
+    
+
+
+    await check('activado')
+        .isIn(['Si', 'No'])
+        .withMessage('Solo puedes poner Si o No')
+        .run(req)
+
+    const resultado = validationResult(req);
+    const erroresValidacion = resultado.array();
+    const errsPorCampo = {};
+    erroresValidacion.forEach(err => 
+        {
+            if (!errsPorCampo[err.path]) {
+                errsPorCampo[err.path] = err.msg;
+            }
+    });
+    //Verificamos las validaciones
+    if(!resultado.isEmpty()){
+
+        const listaPuntosVenta = await PuntosDeVenta.findAll()
+        return res.status(201).render('../views/dashboard/administrativo/nuevoProductoServicio',{
+            APPNAME : process.env.APP_NAME,
+            csrfToken : req.csrfToken(),
+            titulo : 'Panel Administrativo',
+            subTitulo : 'Ingresar un nuevo productos y servicios',
+            active: 'administrativo',
+            //errores : resultado.array(),
+            errores :errsPorCampo,
+            datosProducto : {
+                nombreProducto,
+                tipo,
+                precioGlobal,
+                esPrecioGlobal,
+                activado,
+                disponible,
+                precioPorPunto,
+            },
+            listaPuntosVenta,
+            activeForm : 'productosyservicios'
+        })
+    }
+
+    console.log('Siguiente')
+
+}
+
+
+
+
 
 
 export {
@@ -267,6 +370,7 @@ export {
     datosAdminPost,
     administrativoProductosServicios,
     administrativoNuevoProductoServicio,
+    nuevoProductoServicio,
     administrativoComisiones, 
     administrativoInformes
 }

@@ -1,9 +1,13 @@
 //- Card contenedora
 section(class="w-full max-w-5xl mx-auto mt-6 bg-white rounded-3xl border border-gray-100 px-4 sm:px-6 lg:px-8 py-5 sm:py-6")
 
-  form( method="POST" enctype="multipart/form-data" class="space-y-6")
-    input(type="hidden" name="form" value="productosyservicios")
-    input(type="hidden" name="producto" value="new")
+  if errores
+    
+    each error in errores
+      p=errores.msg
+    
+    
+  form( method="POST" enctype="multipart/form-data" class="space-y-6" novalidate)
     input(type="hidden", name="_csrf" value = csrfToken)
     //- Nombre del producto / servicio
     div.mb-5
@@ -11,9 +15,15 @@ section(class="w-full max-w-5xl mx-auto mt-6 bg-white rounded-3xl border border-
         | Cual es el nombre del producto/servicio
       input#nombreProducto(
         type="text"
+        name = "nombreProducto"
         placeholder="Corte y barba"
+        value  = (datosProducto ? datosProducto.nombreProducto : "")
+        required
         class="block w-full rounded-xl border border-gray-200 bg-gray-50 px-4 py-2.5 text-sm text-slate-800 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
       )
+      if errores
+        p(class="text-red-600 font-bold")=errores.nombreProducto
+        
 
     //- Fila: Tipo / Precio / Precio Global / Activado / Disponible en
     //- En movil: 1 col, en sm: 2 cols, en lg: layout 12 columnas
@@ -28,6 +38,8 @@ section(class="w-full max-w-5xl mx-auto mt-6 bg-white rounded-3xl border border-
         )
           option(value="Servicio" selected) Servicio
           option(value="Producto") Producto
+        if errores
+          p(class="text-red-600 font-bold")=errores.tipo
 
       //- Precio
       div(class="lg:col-span-2")
@@ -36,20 +48,26 @@ section(class="w-full max-w-5xl mx-auto mt-6 bg-white rounded-3xl border border-
           type="text"
           placeholder="$34.000"
           name = "precioGlobal"
+          value  = (datosProducto ? datosProducto.precioGlobal : "")
           onchange = "ponerPuntosANumeros(this)"
           class="block w-full rounded-lg border border-gray-200 bg-gray-50 px-3 py-2.5 text-sm text-slate-800 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
         )
+        if errores
+          p(class="text-red-600 font-bold")=errores.precioGlobal
 
-      //- Precio Global
+      //- Es Precio Global?
       div(class="lg:col-span-2")
-        label(for="esPrecioGlobal" class="block text-sm font-medium text-slate-700 mb-1") Precio Global
+        label(for="esPrecioGlobal" class="block text-sm font-medium text-slate-700 mb-1") El Precio Global?
         select#esPrecioGlobal(
           name="esPrecioGlobal"
           onchange="mostrarPreciosXPunto(this.value)"
           class="block w-full rounded-lg border border-gray-200 bg-gray-50 px-3 py-2.5 text-sm text-slate-800 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
         )
-          option(value="Si" selected) Si
+          option(value="Si" ) Si
           option(value="No") No
+          
+        if errores
+          p(class="text-red-600 font-bold")=errores.esPrecioGlobal
 
       //- Activado
       div(class="lg:col-span-2")
@@ -60,6 +78,8 @@ section(class="w-full max-w-5xl mx-auto mt-6 bg-white rounded-3xl border border-
         )
           option(value="Si" selected) Si
           option(value="No") No
+        if errores
+          p(class="text-red-600 font-bold")=errores.activado
 
       //- Disponible en
       div(class="sm:col-span-2 lg:col-span-4")
@@ -78,9 +98,7 @@ section(class="w-full max-w-5xl mx-auto mt-6 bg-white rounded-3xl border border-
 
     //- Precios por punto de venta
     div(id="preciosPuntos" class="mt-6 hidden")
-
       p(class="text-sm font-medium text-slate-800 mb-3") Precios por punto de venta
-
       
       //- En movil: 1 col, en md: 3 columnas
       div(class="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 text-sm")
@@ -90,11 +108,11 @@ section(class="w-full max-w-5xl mx-auto mt-6 bg-white rounded-3xl border border-
           div(id="precio_"+lista.nombre+"")
             label(for="precioMonterrey" class="block text-sm font-medium text-slate-700 mb-1" )=lista.nombre
             input(
-              type="text"
-              name = "precio_"+lista.nombre+""
+              type="number"
+              name = "precioPorPunto[]"
+              id="precio_"+lista.nombre+""
               onchange = "ponerPuntosANumeros(this)"
               placeholder="$34.000"
-              
               class="block w-full rounded-lg border border-gray-200 bg-gray-50 px-3 py-2.5 text-sm text-slate-800 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
             )
 
