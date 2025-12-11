@@ -1,13 +1,13 @@
 function sincronizarPreciosPorPunto() {
   const select = document.getElementById('esPrecioGlobal');
-  const valor = select ? select.value : 'Si';
+  const valor = select ? select.value : '1';
 
   const contenedor = document.getElementById('preciosPuntos');
   if (!contenedor) return;
 
   const inputs = contenedor.querySelectorAll('input[name="precioPorPunto[]"]');
 
-  if (valor === 'No') {
+  if (valor === '0') {
     // 👉 No hay precio global → usamos precios por punto
     contenedor.classList.remove('hidden');
 
@@ -88,7 +88,18 @@ function ponerPuntosANumeros (input){
     
 }
 
+
+
+const money = (n, decimals = 0) => {
+  return Number(n).toLocaleString('es-CO', {
+    minimumFractionDigits: decimals,
+    maximumFractionDigits: decimals
+  });
+};
+
+
 // hacerlo global para que el onchange lo encuentre
+window.money = money;
 window.mostrarPreciosXPunto = mostrarPreciosXPunto;
 window.mostrarCampoPrecios = mostrarCampoPrecios;
 window.ponerPuntosANumeros = ponerPuntosANumeros

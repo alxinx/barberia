@@ -2,6 +2,8 @@ import Barbero from "./Barbero.js";
 import PuntosDeVenta from "./PuntosDeVenta.js";
 import Administrador from './Administrador.js';  
 import ProductosServicios from './ProductoServicio.js'
+import DisponibilidadProducto from './DisponibilidadProducto.js'
+import PreciosProductosServicios from './PreciosProductosServicios.js'
 
 PuntosDeVenta.hasMany(Barbero, {
   as: 'barberos',
@@ -20,5 +22,7 @@ Barbero.belongsTo(PuntosDeVenta, {
         Barbero,
         PuntosDeVenta,
         Administrador,
-        ProductosServicios
+        ProductosServicios, 
+        DisponibilidadProducto,
+        PreciosProductosServicios
     }

@@ -4,7 +4,7 @@ import { Op } from "sequelize";
 import { money } from "../helpers/formatMoney.js"
 
 import Administrador from "../models/Administrador.js"
-import {ProductosServicios, PuntosDeVenta   } from "../models/index.js";
+import {ProductosServicios, PuntosDeVenta, DisponibilidadProducto, PreciosProductosServicios  } from "../models/index.js";
 
 
 
@@ -270,14 +270,15 @@ const datosAdminPost = async (req, res)=>{
 }
 
 const nuevoProductoServicio = async (req,res)=>{
+    const precio = Number(req.body.precio.replace(/\./g, '')).toFixed(2);
 
-    const {nombreProducto,tipo,precioGlobal,esPrecioGlobal,activado, disponible, precioPorPunto } = req.body
+    const {nombreProductoServicio,tipo,esPrecioGlobal, sku, activo, disponible, precioPorPunto } = req.body
    // const activeForm = form || 'datos'; 
    //console.log(disponible)
    //console.log(precioPorPunto)
-
+    
     //VALIDACIÓN DE DATOS BÁSICOS.
-    await check('nombreProducto')
+    await check('nombreProductoServicio')
         .notEmpty()
         .withMessage('El producto o servicio necesita un nombre')
         .run(req)
@@ -287,7 +288,7 @@ const nuevoProductoServicio = async (req,res)=>{
         .withMessage('Debes decirme si es un Producto o Servicio')
         .run(req)
     
-    await check('precioGlobal')
+    await check('precio')
         .customSanitizer(
             value =>{
                 if (!value) return value;
@@ -299,7 +300,7 @@ const nuevoProductoServicio = async (req,res)=>{
         .run(req)
     
     await check('esPrecioGlobal')
-        .isIn(['Si', 'No'])
+        .isIn(['0', '1'])
         .withMessage('Solo puedes poner Si o No')
         .run(req)
     
@@ -313,14 +314,19 @@ const nuevoProductoServicio = async (req,res)=>{
             .withMessage('Debes ponerle el precio que va a tener en el punto de venta. ')
             .run(req);
         }
-    
+
+        await check('sku')
+            .notEmpty()
+            .withMessage('Debes darme un SKU para identicar el producto o servicio')
+            .run(req)
 
 
-    await check('activado')
-        .isIn(['Si', 'No'])
+        await check('activo')
+        .isIn(['0', '1'])
         .withMessage('Solo puedes poner Si o No')
-        .run(req)
+        .run(req);
 
+        
     const resultado = validationResult(req);
     const erroresValidacion = resultado.array();
     const errsPorCampo = {};
@@ -330,24 +336,25 @@ const nuevoProductoServicio = async (req,res)=>{
                 errsPorCampo[err.path] = err.msg;
             }
     });
+    const listaPuntosVenta = await PuntosDeVenta.findAll()
     //Verificamos las validaciones
     if(!resultado.isEmpty()){
 
-        const listaPuntosVenta = await PuntosDeVenta.findAll()
+        
         return res.status(201).render('../views/dashboard/administrativo/nuevoProductoServicio',{
             APPNAME : process.env.APP_NAME,
             csrfToken : req.csrfToken(),
             titulo : 'Panel Administrativo',
             subTitulo : 'Ingresar un nuevo productos y servicios',
             active: 'administrativo',
-            //errores : resultado.array(),
             errores :errsPorCampo,
             datosProducto : {
-                nombreProducto,
+                nombreProductoServicio,
                 tipo,
-                precioGlobal,
+                precio,
+                sku,
                 esPrecioGlobal,
-                activado,
+                activo,
                 disponible,
                 precioPorPunto,
             },
@@ -356,7 +363,69 @@ const nuevoProductoServicio = async (req,res)=>{
         })
     }
 
-    console.log('Siguiente')
+
+    //  INGRESAMOS EL PRODUCTO PRIMERO.
+
+   
+    const servicioProducto = await ProductosServicios.create({
+        nombreProductoServicio, tipo, precio, sku, activo
+    })
+    
+    //ESTABLECEMOS SI EL PRECIO ES GLOBAL O NO LO ES
+        //SI LO ES ENTONCES INGRESAMOS LOS PRECIOS EN CADA PUNTO DE VENTA CON EL ID DEL PRODUCTO (LO CAPTURAMOS CON EL ID QUE GENERO INGRESARLO)
+    const idProducto = servicioProducto.idProductoServicio;
+    const unidades = 1;
+    console.log(disponible);
+    const puntosVenta=[]
+    for (const idPuntoVenta of disponible) {
+        puntosVenta.push(idPuntoVenta)
+        await DisponibilidadProducto.create({
+            idProductoServicio: idProducto,
+            idPuntoVenta: idPuntoVenta,
+            unidadesDisponibles: unidades
+        });
+    }
+
+    //LUEGO VERIFICAMOS SI LOS PRECIOS SON DISTINTOS EN LOS DIFERENTES PUNTOS
+    if(esPrecioGlobal == 0){
+        let contador = 0;
+        for(const precio of precioPorPunto ){
+            
+            let precioBruto = precioPorPunto[contador] || '';
+            // quitar puntos y convertir a número
+            const limpio = String(precioBruto).replace(/\./g, '');
+            const precioNum = Number(limpio) || 0;
+            await PreciosProductosServicios.create({
+                idProductoServicio : idProducto,
+                idPuntoVenta : puntosVenta[contador],
+                precioEnPunto : precioNum,
+                autorizado : true
+            })
+            contador++
+        }
+    }
+
+    // finalizamos y retornamos a al formulario
+    
+    return res.status(201).render('../views/dashboard/administrativo/nuevoProductoServicio',{
+        APPNAME : process.env.APP_NAME,
+        csrfToken : req.csrfToken(),
+        titulo : 'Panel Administrativo',
+        subTitulo : 'Ingresar un nuevo productos',
+        active: 'administrativo',
+        success : [
+            { msg : `${tipo} agregado con exito. `}
+        ],
+        listaPuntosVenta,
+        activeForm : 'productosyservicios'
+        
+    })
+
+
+    
+    
+    //FINALIZAMOS Y REENVIAMOS RESPUESTA DE SUCCESS 
+    
 
 }
 

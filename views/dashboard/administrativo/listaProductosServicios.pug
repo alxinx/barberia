@@ -57,7 +57,7 @@ section(class="w-full max-w-6xl mx-auto mt-3 bg-white rounded-2xl shadow-sm bord
                     p NO
                 
                 
-              td(class="px-4 py-3 text-center font-semibold text-gray-900") $ #{money(lista.precio)}
+              td(class="px-4 py-3 text-center font-semibold text-gray-900")=lista.precio
               td(class="px-4 py-3 text-center text-gray-600") 
               td(class="px-4 py-3 text-center")
                 a(href="/panel/administrativo/"+lista.idProductoServicio+"?form=productosyservicios"  class="inline-flex items-center px-2 py-1 text-xs border border-gray-200 rounded-md text-gray-600 hover:bg-gray-50")

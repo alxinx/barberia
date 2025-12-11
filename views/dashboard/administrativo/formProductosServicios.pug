@@ -5,25 +5,60 @@ section(class="w-full max-w-5xl mx-auto mt-6 bg-white rounded-3xl border border-
     
     each error in errores
       p=errores.msg
+  
+  if success 
+    each exito in success
+      div(class="flex items-center max-w-sm w-full bg-green-50 border border-green-400 text-green-800 px-4 py-3 mb-10 rounded-2xl shadow-lg animate-slideIn")
+                svg(class="w-5 h-5 mr-2 text-green-500", xmlns="http://www.w3.org/2000/svg", fill="none", viewBox="0 0 24 24", stroke="currentColor")
+                  path(stroke-linecap="round", stroke-linejoin="round", stroke-width="2", d="M6 18L18 6M6 6l12 12")
+                  span(class="text-sm font-medium")=exito.msg
     
     
   form( method="POST" enctype="multipart/form-data" class="space-y-6" novalidate)
     input(type="hidden", name="_csrf" value = csrfToken)
     //- Nombre del producto / servicio
-    div.mb-5
-      label(for="nombreProducto" class="block text-base font-medium text-slate-800 mb-2")
-        | Cual es el nombre del producto/servicio
-      input#nombreProducto(
-        type="text"
-        name = "nombreProducto"
-        placeholder="Corte y barba"
-        value  = (datosProducto ? datosProducto.nombreProducto : "")
-        required
-        class="block w-full rounded-xl border border-gray-200 bg-gray-50 px-4 py-2.5 text-sm text-slate-800 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
-      )
-      if errores
-        p(class="text-red-600 font-bold")=errores.nombreProducto
-        
+
+    div(class="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-12 gap-3 items-end")
+      div(class="lg:col-span-6")
+        label(for="nombreProducto" class="block text-base font-medium  text-slate-800 mb-2")
+          | Cual es el nombre del producto/servicio
+        input#nombreProductoServicio(
+          type="text"
+          name = "nombreProductoServicio"
+          placeholder="Corte y barba"
+          value  = (datosProducto ? datosProducto.nombreProducto : "")
+          required
+          class="block w-full rounded-xl border border-gray-200 bg-gray-50 px-4 py-2.5 text-sm text-slate-800 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+        )
+       
+        if errores
+          div 
+            p(class="text-red-600 font-bold text-sm")=errores.nombreProductoServicio
+      
+      div(class="lg:col-span-3")
+        label(for="nombreProducto" class="block text-base font-medium  text-slate-800 mb-2")
+            |SKU
+        input#sku(
+          type="text"
+          name = "sku"
+          placeholder="Código Sku"
+          value  = (datosProducto ? datosProducto.sku : "")
+          required
+          class="block w-full rounded-xl border border-gray-200 bg-gray-50 px-4 py-2.5 text-sm text-slate-800 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+        )
+        if errores
+          p(class="text-red-600 text-sm font-bold")=errores.sku
+      
+      div(class="lg:col-span-3")
+        label(for="nombreProducto" class="block text-base font-medium  text-slate-800 mb-2")
+            |EAN
+        input#ean(
+          type="text"
+          name = "ean"
+          placeholder="Código EAN"
+          value  = (datosProducto ? datosProducto.sku : "")
+          class="block w-full rounded-xl border border-gray-200 bg-gray-50 px-4 py-2.5 text-sm text-slate-800 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+        )
 
     //- Fila: Tipo / Precio / Precio Global / Activado / Disponible en
     //- En movil: 1 col, en sm: 2 cols, en lg: layout 12 columnas
@@ -44,10 +79,10 @@ section(class="w-full max-w-5xl mx-auto mt-6 bg-white rounded-3xl border border-
       //- Precio
       div(class="lg:col-span-2")
         label(for="precioGlobal" class="block text-sm font-medium text-slate-700 mb-1") Precio:
-        input#precioGlobal(
+        input#precio(
           type="text"
           placeholder="$34.000"
-          name = "precioGlobal"
+          name = "precio"
           value  = (datosProducto ? datosProducto.precioGlobal : "")
           onchange = "ponerPuntosANumeros(this)"
           class="block w-full rounded-lg border border-gray-200 bg-gray-50 px-3 py-2.5 text-sm text-slate-800 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
@@ -63,21 +98,21 @@ section(class="w-full max-w-5xl mx-auto mt-6 bg-white rounded-3xl border border-
           onchange="mostrarPreciosXPunto(this.value)"
           class="block w-full rounded-lg border border-gray-200 bg-gray-50 px-3 py-2.5 text-sm text-slate-800 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
         )
-          option(value="Si" ) Si
-          option(value="No") No
-          
+          option(value="1" ) Si
+          option(value="0") No
+
         if errores
           p(class="text-red-600 font-bold")=errores.esPrecioGlobal
 
       //- Activado
       div(class="lg:col-span-2")
         label(for="activado" class="block text-sm font-medium text-slate-700 mb-1") Activado:
-        select#activado(
-          name="activado"
+        select#activo(
+          name="activo"
           class="block w-full rounded-lg border border-gray-200 bg-gray-50 px-3 py-2.5 text-sm text-slate-800 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
         )
-          option(value="Si" selected) Si
-          option(value="No") No
+          option(value="1" ) Si
+          option(value="0") No
         if errores
           p(class="text-red-600 font-bold")=errores.activado
 
