@@ -17,6 +17,7 @@ try {
     if (process.env.DB_SYNC === 'true'){ 
             db.sync()
         }
+
     await db.authenticate();
     console.log('Conection Success')
 } catch (error) {

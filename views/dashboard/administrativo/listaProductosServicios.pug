@@ -1,0 +1,64 @@
+h2(class="text-lg font-semibold text-slate-800 mb-3 pb-3 ") Productos y Servivcios
+//- Tabla de la lista de  productos
+section(class="w-full max-w-6xl mx-auto mt-3 bg-white rounded-2xl shadow-sm border border-gray-100")
+  //- Header: buscador + botones
+  .flex.items-center.justify-between.px-6.py-4.border-b.border-gray-100
+    //- Buscador
+    .relative.w-full.max-w-sm
+      span(class="absolute inset-y-0 left-3 flex items-center text-gray-400 text-sm") 🔍
+      input(
+        type="text"
+        placeholder="Buscar un producto o servicio"
+        class="w-full pl-9 pr-3 py-2 text-sm rounded-lg border border-gray-200 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 placeholder-gray-400"
+      )
+    //- Botones derecha
+    .flex.items-center.gap-3
+      button(type="button" class="px-4 py-2 text-sm border border-gray-200 rounded-lg text-gray-600 hover:bg-gray-50 cursor-pointer")
+        | Exportar a excel
+      a(href="/panel/administrativo/productosServicios/nuevo" type="button" class="px-4 py-2 text-sm rounded-lg bg-indigo-600 text-white hover:bg-indigo-700 cursor-pointer")
+        | + Agregar un producto
+
+  //- Tabla
+  .overflow-x-auto
+    table(class="min-w-full text-sm")
+      thead
+        tr(class="bg-gray-50 text-xs font-semibold uppercase text-gray-500")
+          th(class="w-10 px-4 py-3")
+            input(type="checkbox" class="h-4 w-4 rounded border-gray-300 text-indigo-600")
+          th(class="text-left px-4 py-3") Producto
+          th(class="text-left px-4 py-3") Tipo
+          th(class="text-center px-4 py-3") Activo
+          th(class="text-right px-4 py-3") Precio global
+          th(class="text-right px-4 py-3") Cantidad global
+          th(class="text-center px-4 py-3") Acción
+
+      tbody(class="divide-y divide-gray-100 text-gray-700")
+        if listaProductos
+          each lista in listaProductos
+
+            //- Fila 1
+            tr(class="hover:bg-gray-50")
+              td(class="px-4 py-3")
+                input(type="checkbox" class="h-4 w-4 rounded border-gray-300 text-indigo-600")
+              td(class="px-4 py-3")
+                .flex.items-center.gap-3
+                  //- avatar producto (placeholder)
+                  .h-10.w-10.rounded-xl.bg-gray-100.flex.items-center.justify-center.text-xs.text-gray-400
+                    span CC
+                  .flex.flex-col
+                    span(class="font-semibold text-gray-900")=lista.nombreProductoServicio
+                    span(class="text-xs text-gray-400") Servicio estándar de corte
+              td(class="px-4 py-3 text-gray-500")=lista.tipo
+              
+              td(class="px-4 py-3 text-center")
+                if lista.activo == 1
+                    p(class="bg-green-500 rounded-sm text-amber-50") SI
+                else
+                    p NO
+                
+                
+              td(class="px-4 py-3 text-center font-semibold text-gray-900")=lista.precio
+              td(class="px-4 py-3 text-center text-gray-600") 
+              td(class="px-4 py-3 text-center")
+                a(href="/panel/administrativo/"+lista.idProductoServicio+"?form=productosyservicios"  class="inline-flex items-center px-2 py-1 text-xs border border-gray-200 rounded-md text-gray-600 hover:bg-gray-50")
+                  | Editar

@@ -1,44 +1,31 @@
-import { DataTypes, STRING, UUIDV4 } from "sequelize";
+import { DataTypes, UUIDV4 } from "sequelize";
+import bcrypt from "bcrypt";
 import db from "../config/db.js";
 
 const DisponibilidadProducto = db.define('disponibilidadProducto', {
-
     id : {
-        type: DataTypes.INTEGER,
-        unique : true,
+        type : DataTypes.INTEGER,
         autoIncrement : true,
-        primaryKey : true
+        primaryKey : true,
     },
     idProductoServicio : {
-        type: DataTypes.UUID,
-        defaultValue: DataTypes.UUIDV4,
-        allowNull : false,
-        references : {
-            model : 'ProductosServicios',
-            key : 'idProductoServicio'    
-        },
-        onDelete : 'CASCADE',
-        onUpdate : 'CASCADE'
-   
-    },
+        type : DataTypes.UUID,
+        allowNull :false
+    }, 
     idPuntoVenta : {
         type : DataTypes.UUID,
-        defaultValue : UUIDV4,
-        allowNull : false,
-        references : {
-            model : 'PuntosDeVenta',
-            key : 'idPuntoVenta'
-        },
-        onDelete : 'CASCADE',
-        onUpdate : 'CASCADE'
+        allowNull :false
     },
     unidadesDisponibles : {
-        type : DataTypes.INTEGER,
-        defaultValue : 1
+        type: DataTypes.INTEGER,
+        defaultValue : 1,
     }
+
 }, {
     tableName : 'disponibilidadProducto',
-    timestamps : true
-});
+    timestamps : true,
+    
+})
+
 
 export default DisponibilidadProducto;

@@ -4,7 +4,7 @@ import {home, crearPuntosVentaPost, editarPuntosVenta,editarPuntosVentaPost, log
 
 import {crearPuntosVenta, loadDatospuntoVenta, listadoPuntosVenta} from "../controllers/puntoVentaControllers.js"
 
-import {homeAdministrativo, datosAdminPost} from "../controllers/administrativoControllers.js"
+import {homeAdministrativo, datosAdminPost, administrativoNuevoProductoServicio,  administrativoProductosServicios, administrativoComisiones, nuevoProductoServicio, administrativoInformes} from "../controllers/administrativoControllers.js"
 
 
 import {listadoBarberos,agregarBarberos,agregarBarberosPost, loadDatosBarbero, editoDatosBarbero} from "../controllers/barberosControllers.js"
@@ -42,9 +42,15 @@ route.post('/barberos/ver/:idBarbero', editoDatosBarbero)
 
 //ADMINISTRATIVOS
 route.get('/administrativo', homeAdministrativo);
-
+route.get('/administrativo/productosServicios', administrativoProductosServicios)
+route.get('/administrativo/productosServicios/nuevo', administrativoNuevoProductoServicio)
+route.get('/administrativo/comisiones', administrativoComisiones);
+route.get('/administrativo/informes', administrativoInformes);
 
 route.post('/administrativo/', datosAdminPost );
+route.post('/administrativo/productosServicios/nuevo', nuevoProductoServicio)
+
+
 
 
 //ANOTHERS

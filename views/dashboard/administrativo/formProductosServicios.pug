@@ -1,0 +1,158 @@
+//- Card contenedora
+section(class="w-full max-w-5xl mx-auto mt-6 bg-white rounded-3xl border border-gray-100 px-4 sm:px-6 lg:px-8 py-5 sm:py-6")
+
+  if errores
+    
+    each error in errores
+      p=errores.msg
+  
+  if success 
+    each exito in success
+      div(class="flex items-center max-w-sm w-full bg-green-50 border border-green-400 text-green-800 px-4 py-3 mb-10 rounded-2xl shadow-lg animate-slideIn")
+                svg(class="w-5 h-5 mr-2 text-green-500", xmlns="http://www.w3.org/2000/svg", fill="none", viewBox="0 0 24 24", stroke="currentColor")
+                  path(stroke-linecap="round", stroke-linejoin="round", stroke-width="2", d="M6 18L18 6M6 6l12 12")
+                  span(class="text-sm font-medium")=exito.msg
+    
+    
+  form( method="POST" enctype="multipart/form-data" class="space-y-6" novalidate)
+    input(type="hidden", name="_csrf" value = csrfToken)
+    //- Nombre del producto / servicio
+
+    div(class="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-12 gap-3 items-end")
+      div(class="lg:col-span-6")
+        label(for="nombreProducto" class="block text-base font-medium  text-slate-800 mb-2")
+          | Cual es el nombre del producto/servicio
+        input#nombreProductoServicio(
+          type="text"
+          name = "nombreProductoServicio"
+          placeholder="Corte y barba"
+          value  = (datosProducto ? datosProducto.nombreProducto : "")
+          required
+          class="block w-full rounded-xl border border-gray-200 bg-gray-50 px-4 py-2.5 text-sm text-slate-800 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+        )
+       
+        if errores
+          div 
+            p(class="text-red-600 font-bold text-sm")=errores.nombreProductoServicio
+      
+      div(class="lg:col-span-3")
+        label(for="nombreProducto" class="block text-base font-medium  text-slate-800 mb-2")
+            |SKU
+        input#sku(
+          type="text"
+          name = "sku"
+          placeholder="Código Sku"
+          value  = (datosProducto ? datosProducto.sku : "")
+          required
+          class="block w-full rounded-xl border border-gray-200 bg-gray-50 px-4 py-2.5 text-sm text-slate-800 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+        )
+        if errores
+          p(class="text-red-600 text-sm font-bold")=errores.sku
+      
+      div(class="lg:col-span-3")
+        label(for="nombreProducto" class="block text-base font-medium  text-slate-800 mb-2")
+            |EAN
+        input#ean(
+          type="text"
+          name = "ean"
+          placeholder="Código EAN"
+          value  = (datosProducto ? datosProducto.sku : "")
+          class="block w-full rounded-xl border border-gray-200 bg-gray-50 px-4 py-2.5 text-sm text-slate-800 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+        )
+
+    //- Fila: Tipo / Precio / Precio Global / Activado / Disponible en
+    //- En movil: 1 col, en sm: 2 cols, en lg: layout 12 columnas
+    div(class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-12 gap-4 items-end")
+
+      //- Tipo
+      div(class="lg:col-span-2")
+        label(for="tipo" class="block text-sm font-medium text-slate-700 mb-1") Tipo :
+        select#tipo(
+          name="tipo"
+          class="block w-full rounded-lg border border-gray-200 bg-gray-50 px-3 py-2.5 text-sm text-slate-800 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+        )
+          option(value="Servicio" selected) Servicio
+          option(value="Producto") Producto
+        if errores
+          p(class="text-red-600 font-bold")=errores.tipo
+
+      //- Precio
+      div(class="lg:col-span-2")
+        label(for="precioGlobal" class="block text-sm font-medium text-slate-700 mb-1") Precio:
+        input#precio(
+          type="text"
+          placeholder="$34.000"
+          name = "precio"
+          value  = (datosProducto ? datosProducto.precioGlobal : "")
+          onchange = "ponerPuntosANumeros(this)"
+          class="block w-full rounded-lg border border-gray-200 bg-gray-50 px-3 py-2.5 text-sm text-slate-800 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+        )
+        if errores
+          p(class="text-red-600 font-bold")=errores.precioGlobal
+
+      //- Es Precio Global?
+      div(class="lg:col-span-2")
+        label(for="esPrecioGlobal" class="block text-sm font-medium text-slate-700 mb-1") El Precio Global?
+        select#esPrecioGlobal(
+          name="esPrecioGlobal"
+          onchange="mostrarPreciosXPunto(this.value)"
+          class="block w-full rounded-lg border border-gray-200 bg-gray-50 px-3 py-2.5 text-sm text-slate-800 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+        )
+          option(value="1" ) Si
+          option(value="0") No
+
+        if errores
+          p(class="text-red-600 font-bold")=errores.esPrecioGlobal
+
+      //- Activado
+      div(class="lg:col-span-2")
+        label(for="activado" class="block text-sm font-medium text-slate-700 mb-1") Activado:
+        select#activo(
+          name="activo"
+          class="block w-full rounded-lg border border-gray-200 bg-gray-50 px-3 py-2.5 text-sm text-slate-800 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+        )
+          option(value="1" ) Si
+          option(value="0") No
+        if errores
+          p(class="text-red-600 font-bold")=errores.activado
+
+      //- Disponible en
+      div(class="sm:col-span-2 lg:col-span-4")
+        p(class="block text-sm font-medium text-slate-700 mb-1") Disponible en:
+        div(class="flex flex-wrap gap-x-4 gap-y-2 text-sm text-slate-700")
+            each lista in listaPuntosVenta
+              label(class="inline-flex items-center gap-2")
+                input(type="checkbox" name="disponible"
+                id=lista.nombre
+                checked
+                value =lista.idPuntoVenta
+                onchange="mostrarCampoPrecios(this)"
+                class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500")
+                span=lista.nombre
+          
+
+    //- Precios por punto de venta
+    div(id="preciosPuntos" class="mt-6 hidden")
+      p(class="text-sm font-medium text-slate-800 mb-3") Precios por punto de venta
+      
+      //- En movil: 1 col, en md: 3 columnas
+      div(class="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 text-sm")
+
+        each lista in listaPuntosVenta
+          //- Monterrey
+          div(id="precio_"+lista.nombre+"")
+            label(for="precioMonterrey" class="block text-sm font-medium text-slate-700 mb-1" )=lista.nombre
+            input(
+              type="number"
+              name = "precioPorPunto[]"
+              id="precio_"+lista.nombre+""
+              onchange = "ponerPuntosANumeros(this)"
+              placeholder="$34.000"
+              class="block w-full rounded-lg border border-gray-200 bg-gray-50 px-3 py-2.5 text-sm text-slate-800 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+            )
+
+    div(class="flex justify-center")
+            button(
+                type="submit"
+                class="px-5 py-2 w-4xl rounded-lg text-sm font-medium text-white bg-green-500 hover:bg-green-600 shadow-md transition cursor-pointer"
+                ) GUARDAR

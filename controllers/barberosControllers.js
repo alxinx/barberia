@@ -347,8 +347,6 @@ const editoDatosBarbero = async (req, res)=>{
 
     //Edito los datos del usuario
     const edicion = await Barbero.findByPk(idBarbero)
-    console.log(`Dato activo: ${barberData.activo}`)
-
     edicion.nombreBarbero = nombreBarbero;
     edicion.apellidoBarbero = apellidoBarbero;
     edicion.identificacionBarbero = identificacionBarbero;

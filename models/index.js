@@ -4,7 +4,7 @@ import Administrador from './Administrador.js';
 import DisponibilidadProducto from './DisponibilidadProducto.js';
 import ProductosServicios from './ProductoServicio.js';
 import PreciosXPunto from './preciosProducto.js'
-
+import PreciosProductosServicios from './PreciosProductosServicios.js'
 
 PuntosDeVenta.hasMany(Barbero, {
   as: 'barberos',
@@ -56,17 +56,12 @@ DisponibilidadProducto.belongsTo(PuntosDeVenta, {
   })
 
 
-
-
-
-
-
-
     export {
         Barbero,
         PuntosDeVenta,
         Administrador,
         DisponibilidadProducto,
         ProductosServicios,
-        PreciosXPunto
+        PreciosXPunto,
+        PreciosProductosServicios
     }

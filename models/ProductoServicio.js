@@ -25,6 +25,24 @@ const ProductosServicios = db.define('ProductosServicios', {
             isDecimal: true
         }
     },
+
+    ean : {
+        type : DataTypes.STRING,
+        unique : true,
+        allowNull : true,
+        validate : {
+            len : [13,13],
+            isNumeric : true
+        }
+    },
+    sku : {
+        type : DataTypes.STRING,
+        unique : true,
+        allowNull : false,
+        validate : {
+            notEmpty : true
+        }
+    },
     activo  : {
        type : DataTypes.BOOLEAN,
        defaultValue : true,

@@ -10,20 +10,19 @@ nav(class="flex items-center gap-4 border-b border-gray-100 pb-3 mb-4 text-sm")
   )
     span Datos Básicos
 
-  a(
-    href="/panel/administrativo/?form=productosyservicios"
+  a(href="/panel/administrativo/productosServicios"
     class= activeForm === 'productosyservicios' ? clActivo : clInactivo
   )
     span Productos y Servicios
 
   a(
-    href="/panel/administrativo/?form=comisiones"
+    href="/panel/administrativo/comisiones"
     class= activeForm === 'comisiones' ? clActivo : clInactivo
   )
     span Comisiones
 
   a(
-    href="/panel/administrativo/?form=informes"
+    href="/panel/administrativo/informes"
     class= activeForm === 'informes' ? clActivo : clInactivo
   )
     span Informes

@@ -38,8 +38,9 @@ const Barbero = db.define('Barbero', {
     },
 
     tipoEmpleado : {
-        type : DataTypes.ENUM('Barbero', 'Administrador', 'Otro'),    },
-
+        type : DataTypes.ENUM('Barbero', 'Administrador', 'Otro'),
+        defaultValue : 'Barbero'
+    },
     direccionBarbero: {
         type: DataTypes.STRING,
         allowNull: false
