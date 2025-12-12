@@ -47,8 +47,33 @@ const homeAdministrativo = async (req,res)=>{
 
 //CARGAR PAGINA PRODUCTOS Y SERVICIOS
 const administrativoProductosServicios = async(req,res)=>{
-    
-    const listaProductos =await ProductosServicios.findAll();
+
+    const POR_PAGINA =2 ;
+    const paginaActual = parseInt(req.query.page) || 1;
+
+    const limit = POR_PAGINA;
+    const offset = (paginaActual - 1) * limit;
+
+    // findAndCountAll -> te trae filas + total
+    const { rows: listaProductos, count: totalRegistros } = await ProductosServicios.findAndCountAll({
+        limit,
+        offset,
+        order: [['createdAt', 'DESC']]                // opcional, pero recomendado
+    });
+
+    const totalPaginas = Math.ceil(totalRegistros / POR_PAGINA);
+
+    // helpers para el paginador
+    const tienePaginaAnterior = paginaActual > 1;
+    const tienePaginaSiguiente = paginaActual < totalPaginas;
+    const paginaAnterior = paginaActual - 1;
+    const paginaSiguiente = paginaActual + 1;
+
+    // array de páginas (1, 2, 3, ...)
+    const paginas = [];
+    for (let i = 1; i <= totalPaginas; i++) {
+        paginas.push(i);
+    }
 
      res.status(201).render('../views/dashboard/administrativo/verProductosServicios',{
         APPNAME : process.env.APP_NAME,
@@ -57,9 +82,16 @@ const administrativoProductosServicios = async(req,res)=>{
         subTitulo : 'Productos y Servicios',
         active: 'administrativo',
         listaProductos,
-        activeForm : 'productosyservicios'
+        activeForm : 'productosyservicios',
+        listaProductos,
+        paginaActual,
+        totalPaginas,
+        paginas,
+        tienePaginaAnterior,
+        tienePaginaSiguiente,
+        paginaAnterior,
+        paginaSiguiente,
      })
-
 }
 
 
