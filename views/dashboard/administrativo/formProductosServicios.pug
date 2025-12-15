@@ -16,6 +16,7 @@ section(class="w-full max-w-5xl mx-auto mt-6 bg-white rounded-3xl border border-
     
   form( method="POST" enctype="multipart/form-data" class="space-y-6" novalidate)
     input(type="hidden", name="_csrf" value = csrfToken)
+    input(type="hidden", name="idProductoServicio" value  = (datosProducto ? datosProducto.idProductoServicio : ""))
     //- Nombre del producto / servicio
 
     div(class="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-12 gap-3 items-end")
@@ -26,7 +27,7 @@ section(class="w-full max-w-5xl mx-auto mt-6 bg-white rounded-3xl border border-
           type="text"
           name = "nombreProductoServicio"
           placeholder="Corte y barba"
-          value  = (datosProducto ? datosProducto.nombreProducto : "")
+          value  = (datosProducto ? datosProducto.nombreProductoServicio : "")
           required
           class="block w-full rounded-xl border border-gray-200 bg-gray-50 px-4 py-2.5 text-sm text-slate-800 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
         )
@@ -56,7 +57,7 @@ section(class="w-full max-w-5xl mx-auto mt-6 bg-white rounded-3xl border border-
           type="text"
           name = "ean"
           placeholder="Código EAN"
-          value  = (datosProducto ? datosProducto.sku : "")
+          value  = (datosProducto ? datosProducto.ean : "")
           class="block w-full rounded-xl border border-gray-200 bg-gray-50 px-4 py-2.5 text-sm text-slate-800 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
         )
 
@@ -70,9 +71,10 @@ section(class="w-full max-w-5xl mx-auto mt-6 bg-white rounded-3xl border border-
         select#tipo(
           name="tipo"
           class="block w-full rounded-lg border border-gray-200 bg-gray-50 px-3 py-2.5 text-sm text-slate-800 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
-        )
-          option(value="Servicio" selected) Servicio
-          option(value="Producto") Producto
+        ) 
+          option(value="Servicio", selected=datosProducto && datosProducto.tipo === "Servicio") Servicio
+          option(value="Producto", selected=datosProducto && datosProducto.tipo === "Producto") Producto
+         
         if errores
           p(class="text-red-600 font-bold")=errores.tipo
 
@@ -83,7 +85,8 @@ section(class="w-full max-w-5xl mx-auto mt-6 bg-white rounded-3xl border border-
           type="text"
           placeholder="$34.000"
           name = "precio"
-          value  = (datosProducto ? datosProducto.precioGlobal : "")
+          value=(datosProducto ? datosProducto.precio.replace('.00', '') : "")
+          
           onchange = "ponerPuntosANumeros(this)"
           class="block w-full rounded-lg border border-gray-200 bg-gray-50 px-3 py-2.5 text-sm text-slate-800 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
         )
@@ -98,7 +101,9 @@ section(class="w-full max-w-5xl mx-auto mt-6 bg-white rounded-3xl border border-
           onchange="mostrarPreciosXPunto(this.value)"
           class="block w-full rounded-lg border border-gray-200 bg-gray-50 px-3 py-2.5 text-sm text-slate-800 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
         )
-          option(value="1" ) Si
+
+        
+          option(value="1") Si
           option(value="0") No
 
         if errores
@@ -124,7 +129,7 @@ section(class="w-full max-w-5xl mx-auto mt-6 bg-white rounded-3xl border border-
               label(class="inline-flex items-center gap-2")
                 input(type="checkbox" name="disponible"
                 id=lista.nombre
-                checked
+                checked=(idsPuntosDisponibles && idsPuntosDisponibles.includes(lista.idPuntoVenta))
                 value =lista.idPuntoVenta
                 onchange="mostrarCampoPrecios(this)"
                 class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500")

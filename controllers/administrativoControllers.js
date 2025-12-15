@@ -95,6 +95,11 @@ const administrativoProductosServicios = async(req,res)=>{
 }
 
 
+
+
+
+
+
 const administrativoNuevoProductoServicio = async(req,res)=>{
     
     const listaProductos =await ProductosServicios.findAll();
@@ -114,7 +119,41 @@ const administrativoNuevoProductoServicio = async(req,res)=>{
 }
 
 
+//EDICION DE PRODUCTO/SERVICIO
+const editarProductoServicio = async(req, res)=>{
+    const {idProductoServicio}=req.params
+    console.log(idProductoServicio)
+    const datosProducto =await ProductosServicios.findOne({ where : {idProductoServicio : idProductoServicio}})
+    const listaPuntosVenta = await PuntosDeVenta.findAll()
+    const disponible = await DisponibilidadProducto.findAll({where : {idProductoServicio:idProductoServicio}})
+    
+    const idsPuntosDisponibles = disponible.map(d => d.idPuntoVenta);
 
+    const precios = await PreciosProductosServicios.findAll({
+  where: { idProductoServicio }
+});
+    
+        const preciosPorPunto = {};
+            precios.forEach(p => {
+            preciosPorPunto[p.idPuntoVenta] = p.precioEnPunto;
+        });
+    
+        console.log(idsPuntosDisponibles)
+
+    res.status(201).render('../views/dashboard/administrativo/editarProductoServicio',{
+        APPNAME : process.env.APP_NAME,
+        csrfToken : req.csrfToken(),
+        titulo : 'Panel Administrativo',
+        subTitulo : 'Editar un nuevo productos y servicios',
+        active: 'administrativo',
+        card : 'datosProductoServicio',
+        datosProducto,
+        listaPuntosVenta,
+        idsPuntosDisponibles,
+        preciosPorPunto,
+        activeForm : 'productosyservicios'
+     })
+}
 
 
 
@@ -473,5 +512,6 @@ export {
     administrativoNuevoProductoServicio,
     nuevoProductoServicio,
     administrativoComisiones, 
-    administrativoInformes
+    administrativoInformes,
+    editarProductoServicio
 }

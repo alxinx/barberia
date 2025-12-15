@@ -1,0 +1,27 @@
+extends ../../layout/headerDashboard.pug
+block styles
+block content
+  script(src="/js/mostrarPreciosPorPunto.js") 
+  main(class="min-h-screen bg-[#F5F7F4] flex")
+    script(src="/js/mostrarPreciosPorPunto.js")
+    include ../../layout/leftMenu.pug
+
+    section(class="flex-1 p-10")
+      include ../../layout/header-body.pug
+      include ./headerAdministrativo.pug
+
+      // CONTENEDOR PRINCIPAL PRODUCTOS Y SERVICIOS
+      div(class="grid grid-cols-1 lg:grid-cols-4 gap-6 w-full bg-[#FBFAFF] mt-3")
+
+        // ================= TARJETA IZQUIERDA =================
+        aside(class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 min-h-[20vh] lg:col-span-1")
+            
+            if card === 'datosProductoServicio'
+              include ./indicadorComportamientoProducto.pug
+      
+        // ================= TARJETA DERECHA =================
+        aside(class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 min-h-[60vh] lg:col-span-3")
+            //BTNS NAVEGACION
+            include ./navAdministrador.pug
+            
+            include ./formProductosServicios.pug
