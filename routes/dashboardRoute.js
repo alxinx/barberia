@@ -20,14 +20,9 @@ route.get('/puntosDeVenta/nuevoPunto', crearPuntosVenta)
 route.get('/puntosDeVenta/ver/:idPuntoVenta', loadDatospuntoVenta)
 route.get('/puntosDeVenta', listadoPuntosVenta)
 route.get('/editarPunto/:idPuntoVenta', editarPuntosVenta )
-<<<<<<< HEAD
-
 route.post('/puntosDeVenta/ver/:idPuntoVenta', editarPuntosVentaPost )
 route.post('/puntosDeVenta/nuevoPunto', crearPuntosVentaPost)
-=======
 route.post('/puntosDeVenta/ver/:idPuntoVenta', editarPuntosVentaPost )
-route.post('/puntos_de_venta', crearPuntosVentaPost)
->>>>>>> 600f93c (ya se paso el formulario de edicion, esta cargando los datos y esta editandolos correctamente,  se verificaron las validacionnes como repetir y funcionan sin problema)
 //FIN PUNTOS DE VENTA
 
 
