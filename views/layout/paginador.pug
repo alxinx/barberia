@@ -1,0 +1,29 @@
+if totalPaginas && totalPaginas > 1
+ nav(class="mt-6 flex items-center justify-center gap-2")
+   // Botón "Anterior"
+   if tienePaginaAnterior
+     a(
+       href=`?form=productosyservicios&page=${paginaAnterior}`
+       class="px-3 py-1 rounded-lg border border-gray-300 text-sm text-slate-700 hover:bg-gray-100"
+     ) « Anterior
+   else
+     span(class="px-3 py-1 rounded-lg border border-gray-100 text-sm text-slate-400 cursor-not-allowed") « Anterior
+
+   // Números de página
+   each p in paginas
+     if p === paginaActual
+       span(class="px-3 py-1 rounded-lg bg-green-600 text-white text-sm font-medium")= p
+     else
+       a(
+         href=`?form=productosyservicios&page=${p}`
+         class="px-3 py-1 rounded-lg border border-gray-200 text-sm text-slate-700 hover:bg-gray-100"
+       )= p
+
+   // Botón "Siguiente"
+   if tienePaginaSiguiente
+          a(
+       href=`?form=productosyservicios&page=${paginaSiguiente}`
+       class="px-3 py-1 rounded-lg border border-gray-300 text-sm text-slate-700 hover:bg-gray-100"
+     ) Siguiente »
+   else
+     span(class="px-3 py-1 rounded-lg border border-gray-100 text-sm text-slate-400 cursor-not-allowed") Siguiente »

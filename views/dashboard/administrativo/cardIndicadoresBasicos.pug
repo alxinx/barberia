@@ -1,21 +1,21 @@
-h1(class="text-3xl font-bold text-center text-emerald-500 ") Indicadores Básicosgit
-section(class="min-h-screen flex justify-center")
+h1(class="tituloCards") Indicadores Básicos
+section(class="flex justify-center")
   .w-full.max-w-md.space-y-6
 
     // ---- Ventas Globales Hoy ----
     .rounded-3xl.border.border-gray-200.bg-white.shadow-sm.px-6.py-4
-      p(class="text-lg font-semibold text-gray-800 text-center") Comisiones hoy
-      p(class="mt-2 text-4xl font-bold text-emerald-500 text-center") $2.400.000
+      p(class="subTitleCards") Ventas Globales Del Día
+      p(class="priceCars") $ 3.540.00
       
 
     // ---- Ventas Globales Mes ----
-    .rounded-3xl.border.border-gray-200.bg-white.shadow-sm.px-6.py-4
-      p(class="text-lg font-semibold text-gray-800 text-center") Ventas Globales Mes
-      p(class="mt-2 text-4xl font-bold text-emerald-500 text-center") $27.350.000
+    div(class="subCard")
+      p(class="subTitleCards") Ventas Globales Mes
+      p(class="priceCars") $27.350.000
       span(class="font-light text-") En X días
 
     // ---- Top facturación por punto ----
-    .mt-4
+    div(class="subCard")
       p(class="text-center text-base font-semibold text-gray-900") Top facturación por punto
 
       .mt-3.space-y-1.text-sm
@@ -32,7 +32,7 @@ section(class="min-h-screen flex justify-center")
           span(class="font-semibold text-red-500") $ 4.850.000
 
     // ---- Top facturación por Barbero ----
-    .mt-6
+    div(class="subCard")
       p(class="text-center text-base font-semibold text-gray-900") Top facturación por Barbero
 
       .mt-3.space-y-1.text-sm
@@ -49,7 +49,7 @@ section(class="min-h-screen flex justify-center")
           span(class="font-semibold text-emerald-500") $ 2.200.000
 
     // ---- Top Productos / Servicios ----
-    .mt-6
+    div(class="subCard")
       p(class="text-center text-base font-semibold text-gray-900") Top Productos / Servicios
 
       .mt-3.space-y-1.text-sm
