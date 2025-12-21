@@ -18,12 +18,13 @@ route.get('/', home)
 
 
 //PUNTOS DE VENTA
-//route.get('/puntos_de_venta', crearPuntosVenta)
+route.get('/puntosDeVenta/nuevoPunto', crearPuntosVenta)
 route.get('/puntosDeVenta/ver/:idPuntoVenta', loadDatospuntoVenta)
 route.get('/puntosDeVenta', listadoPuntosVenta)
 route.get('/editarPunto/:idPuntoVenta', editarPuntosVenta )
-route.post('/editarPunto/:idPuntoVenta', editarPuntosVentaPost )
-route.post('/puntos_de_venta', crearPuntosVentaPost)
+
+route.post('/puntosDeVenta/ver/:idPuntoVenta', editarPuntosVentaPost )
+route.post('/puntosDeVenta/nuevoPunto', crearPuntosVentaPost)
 //FIN PUNTOS DE VENTA
 
 
