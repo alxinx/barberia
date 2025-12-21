@@ -1,33 +1,33 @@
-h1(class="text-3xl font-bold text-center text-emerald-500 ") Comportamiento Del Producto
-section(class="min-h-screen flex justify-center")
+h1(class="tituloCards") Comportamiento Del Producto
+section(class="flex justify-center")
   .w-full.max-w-md.space-y-6
 
     // ---- Ventas Globales Del Producto ----
-    .rounded-3xl.border.border-gray-200.bg-white.shadow-sm.px-6.py-4
+    div(class="subCard")
       p(class="text-lg font-semibold text-gray-800 text-center") Ventas Totales
       p(class="mt-2 text-4xl font-bold text-emerald-500 text-center") $2.400.000
       
 
     // ---- Promedio de venta mes ----
-    .rounded-3xl.border.border-gray-200.bg-white.shadow-sm.px-6.py-4
+    div(class="subCard")
       p(class="text-lg font-semibold text-gray-800 text-center") Promedio de venta al mes
       p(class="mt-2 text-4xl font-bold text-emerald-500 text-center") $27.350.000
 
     // ---- Top facturación por punto ----
-    .mt-4
+    div(class="subCard")
       p(class="text-center text-base font-semibold text-gray-900") En cuales sedes se vende mas?
 
       .mt-3.space-y-1.text-sm
         .flex.justify-between
-          span(class="font-semibold text-emerald-500") Provenza
-          span(class="font-semibold text-emerald-500") $ 12.300.000
+          span(class="spanGreen") Provenza
+          span(class="spanGreen font-normal") $ 12.300.000
 
         .flex.justify-between
-          span(class="font-semibold text-orange-400") Manila
-          span(class="font-semibold text-orange-400") $ 10.200.000
+          span(class="spanOrange") Manila
+          span(class="spanOrange font-normal") $ 10.200.000
 
         .flex.justify-between
-          span(class="font-semibold text-red-500") Monterrey
-          span(class="font-semibold text-red-500") $ 4.850.000
+          span(class="spanRed") Monterrey
+          span(class="spanRed font-normal") $ 4.850.000
 
     

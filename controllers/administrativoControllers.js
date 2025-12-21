@@ -48,7 +48,7 @@ const homeAdministrativo = async (req,res)=>{
 //CARGAR PAGINA PRODUCTOS Y SERVICIOS
 const administrativoProductosServicios = async(req,res)=>{
 
-    const POR_PAGINA =2 ;
+    const POR_PAGINA =8 ;
     const paginaActual = parseInt(req.query.page) || 1;
 
     const limit = POR_PAGINA;
