@@ -35,7 +35,7 @@ const listadoPuntosVenta = async (req,res)=>{
 const loadDatospuntoVenta = async (req,res)=>{
     const {idPuntoVenta} = req.params
     const { form } = req.query; 
-     const activeForm = form || 'datos'; 
+    const activeForm = form || 'datos'; 
     const datosPunto = await PuntosDeVenta.findOne({where : { idPuntoVenta : idPuntoVenta}})
     res.status(201).render('../views/dashboard/puntosVenta/ver',{
         APPNAME : process.env.APP_NAME,
@@ -266,10 +266,77 @@ const editarPuntosVentaPost = async (req,res)=>{
 
 
 
+const loadIngresosServicios = async (req,res)=>{
+    //activeForm : 'productosyservicios'
+    const {idPuntoVenta} = req.params;
+    return res.status(201).render('../views/dashboard/puntosVenta/verIngresosServicios',{
+        APPNAME : process.env.APP_NAME,
+        csrfToken : req.csrfToken(),
+        titulo : 'Panel Administrativo',
+        subTitulo : 'Ingresos y Servicios',
+        active: 'puntosventa',
+        activeForm : 'ingresosServicios',
+        datosPunto : {
+            idPuntoVenta : idPuntoVenta
+        },
+    })
+}
+
+
+
+const loadGastosYCostos = async (req,res)=>{
+    //activeForm : 'productosyservicios'
+    const {idPuntoVenta} = req.params;
+    return res.status(201).render('../views/dashboard/puntosVenta/verGastosYCostos',{
+        APPNAME : process.env.APP_NAME,
+        csrfToken : req.csrfToken(),
+        titulo : 'Panel Administrativo',
+        subTitulo : 'Gastos y Costos',
+        active: 'puntosventa',
+        activeForm : 'gastosCostos',
+        datosPunto : {
+            idPuntoVenta : idPuntoVenta
+        }
+    })
+}
+
+const loadInventarioProductos = async (req,res)=>{
+    //activeForm : 'productosyservicios'
+    const {idPuntoVenta} = req.params;
+    return res.status(201).render('../views/dashboard/puntosVenta/verInventarioProductos',{
+        APPNAME : process.env.APP_NAME,
+        csrfToken : req.csrfToken(),
+        titulo : 'Panel Administrativo',
+        subTitulo : 'Inventario y Productos',
+        active: 'puntosventa',
+        activeForm : 'inventarioProductos',
+        datosPunto : {
+            idPuntoVenta : idPuntoVenta
+        }
+    })
+}
+
+
+const loadBarberosPuntoVenta = async (req,res)=>{
+    //activeForm : 'productosyservicios'
+    const {idPuntoVenta} = req.params;
+    return res.status(201).render('../views/dashboard/puntosVenta/verBarberosPunto',{
+        APPNAME : process.env.APP_NAME,
+        csrfToken : req.csrfToken(),
+        titulo : 'Panel Administrativo',
+        subTitulo : 'Barberos',
+        active: 'puntosventa',
+        activeForm : 'barberos',
+        datosPunto : {
+            idPuntoVenta : idPuntoVenta
+        }
+    })
+}
+
 
 
 
 
 export {
-    crearPuntosVenta, listadoPuntosVenta, loadDatospuntoVenta, editarPuntosVentaPost
+    crearPuntosVenta, listadoPuntosVenta, loadDatospuntoVenta, editarPuntosVentaPost, loadIngresosServicios, loadGastosYCostos, loadInventarioProductos, loadBarberosPuntoVenta
 }

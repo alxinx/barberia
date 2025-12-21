@@ -11,31 +11,28 @@ nav(class="flex items-center gap-4 border-b border-gray-100 pb-3 mb-4 text-sm")
     span Datos Básicoss
 
   a(
-    href="/panel/puntosDeVenta/ver/"+datosPunto.idPuntoVenta+"?form=ingresosServicios"
+    href="/panel/puntosDeVenta/verMovimientos/"+datosPunto.idPuntoVenta+""
     class= activeForm === 'ingresosServicios' ? clActivo : clInactivo
+
   )
     span Ingresos & Servicio
 
   a(
-    href="/panel/puntosDeVenta/ver/"+datosPunto.idPuntoVenta+"?form=gastosCostos"
+    href="/panel/puntosDeVenta/verGastosYCostos/"+datosPunto.idPuntoVenta+""
     class= activeForm === 'gastosCostos' ? clActivo : clInactivo
   )
     span Gastos & Costos
 
   a(
-    href="/panel/puntosDeVenta/ver/"+datosPunto.idPuntoVenta+"?form=inventarioProductos"
+    href="/panel/puntosDeVenta/verInventarios/"+datosPunto.idPuntoVenta+""
     class= activeForm === 'inventarioProductos' ? clActivo : clInactivo
   )
     span Inventario & Productos
 
   a(
-    href="/panel/puntosDeVenta/ver/"+datosPunto.idPuntoVenta+"?form=barberos"
+    href="/panel/puntosDeVenta/verBarberos/"+datosPunto.idPuntoVenta
     class= activeForm === 'barberos' ? clActivo : clInactivo
     )
     span Barberos & Operación
 
-  a(
-    href="/panel/puntosDeVenta/ver/"+datosPunto.idPuntoVenta+"?form=cajaReportes"
-    class= activeForm === 'cajaReportes' ? clActivo : clInactivo
-    )
-    span Caja & Reportes
+  
