@@ -32,7 +32,7 @@ route.post('/puntosDeVenta/nuevoPunto', crearPuntosVentaPost)
 
 //BARBEROS
 
-route.get('/barberos', listadoBarberos)
+route.get('/barberos', listadoBarberos) 
 route.get('/nuevoBarbero', uploadFotoBarbero.single('foto'), agregarBarberos)
 route.get('/barberos/ver/:idBarbero', loadDatosBarbero )
 route.post('/nuevoBarbero',agregarBarberosPost);
