@@ -18,4 +18,41 @@ block content
         // ================= TARJETA DERECHA =================
         aside(class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 min-h-[60vh] lg:col-span-3")
             include ./navPuntosVenta.pug
-            h1=subTitulo
+            h1(class="spanOrange  text-2xl py-3" )=subTitulo
+            //- Tabla
+            .overflow-x-auto
+              table(class="min-w-full text-sm")
+                thead
+                  tr(class="bg-gray-50 text-xs font-semibold uppercase text-gray-500")
+                    th(class="text-center px-4 py-3") Fecha 
+                    th(class="text-center px-4 py-3") Ingresos
+                    th(class="text-center px-4 py-3") Egresos
+                    th(class="text-center px-4 py-3") Citas Del Día
+                    th(class="text-center px-4 py-3") 
+
+                tbody(class="divide-y divide-gray-100 text-gray-700")
+                  
+                      //- Fila 1
+                      tr(class="hover:bg-gray-50")
+                        td(class="px-4 py-3 font-bold text-center") 10 /11 /2025
+                        td(class="px-4 py-3 text-center spanGreen")  560.000 
+                        td(class="px-4 py-3 text-center font-semibold spanRed ") $ 21.000
+                        td(class="px-4 py-3 text-center font-semibold ") 20
+                        td(class="px-4 py-3 text-center")
+                          a(href="" class="btnPrimary")  Ver Mas
+
+                      tr(class="hover:bg-gray-50")
+                        td(class="px-4 py-3 font-bold text-center") 10 /11 /2025
+                        td(class="px-4 py-3 text-center spanGreen")  560.000 
+                        td(class="px-4 py-3 text-center font-semibold spanRed ") $ 21.000
+                        td(class="px-4 py-3 text-center font-semibold ") 20
+                        td(class="px-4 py-3 text-center")
+                          a(href="" class="btnPrimary")  Ver Mas
+
+                      tr(class="hover:bg-gray-50")
+                        td(class="px-4 py-3 font-bold text-center") 10 /11 /2025
+                        td(class="px-4 py-3 text-center spanGreen")  560.000 
+                        td(class="px-4 py-3 text-center font-semibold spanRed ") $ 21.000
+                        td(class="px-4 py-3 text-center font-semibold ") 20
+                        td(class="px-4 py-3 text-center")
+                          a(href="/panel/puntosDeVenta/verDia/" class="btnPrimary")  Ver Mas

@@ -14,8 +14,148 @@ block content
 
         // ================= TARJETA IZQUIERDA =================
         aside(class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 min-h-[64vh] lg:col-span-1")
-            //include ./tarjetaPuntoVenta.pug
+            include ./tarjetaBarberos.pug
         // ================= TARJETA DERECHA =================
         aside(class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 min-h-[60vh] lg:col-span-3")
             include ./navPuntosVenta.pug
             h1=subTitulo
+
+            each barberos in listadoBarberos
+            
+              div(class="collapse collapse-plus bg-base-100 border border-base-300")
+                input(type="radio", name="my-accordion-3" )
+                div(class="collapse-title font-semibold flex-3")
+                  div(class="flex flex-col md:flex-row md:items-center md:align-middle gap-6")
+                    div(class="flex items-center gap-4")
+                      div(class="w-24 h-10 sm:w-10 mt-3 rounded-full shadow-gray-900 shadow overflow-hidden bg-green-100 mb-4")
+                        img(src="/images/avatar/ec1e0bce-e592-431e-8834-bc78b4196a78.png" alt="Profile" class="w-full h-full object-cover")
+
+
+                    h2(class="text-1xl text-gray-900")
+                     | #{barberos.nombreBarbero} #{barberos.apellidoBarbero}
+                    
+                    div(class="ml-auto flex gap-12 text-right")
+                      div
+                        p(class="text-sm italic underline text-gray-600")
+                          | Hoy ha vendido
+                        p(class="text-2xl font-extrabold text-gray-900 mt-1")
+                          | $340.000
+                      
+                      div
+                        p(class="text-sm italic underline text-gray-600")
+                          | Lleva en el mes
+                        p(class="text-3xl font-extrabold spanGreen mt-1")
+                          | $340.000
+                    
+                      
+
+                div(class="collapse-content text-sm border-t-1 border-gray-400")
+                  div(class="w-full bg-white rounded-xl p-6 space-y-6")
+
+                    // ─── FILA SUPERIOR ─────────────────────────────
+                    div(class="grid grid-cols-1 md:grid-cols-2 gap-6")
+
+                      // Servicios más vendidos
+                      div(class="flex items-center gap-4")
+                        // Icono Heroicons (gift)
+                        svg(
+                          xmlns="http://www.w3.org/2000/svg"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          stroke-width="1.5"
+                          stroke="currentColor"
+                          class="w-10 h-10 text-gray-800"
+                        )
+                          path(
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            d="M9 6.75V6a3 3 0 0 1 6 0v.75M3 9h18M4.5 9v9.75A2.25 2.25 0 0 0 6.75 21h10.5A2.25 2.25 0 0 0 19.5 18.75V9"
+                          )
+
+                        div
+                          p(class="text-green-600 font-semibold")
+                            | Servicios Más Vendidos
+                          p(class="text-xl font-bold text-gray-900")
+                            | Corte y Barba
+
+                      // Productos más vendidos
+                      div(class="flex items-center gap-4")
+                        // Icono Heroicons (cube)
+                        svg(
+                          xmlns="http://www.w3.org/2000/svg"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          stroke-width="1.5"
+                          stroke="currentColor"
+                          class="w-10 h-10 text-gray-800"
+                        )
+                          path(
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            d="M21 7.5 12 3 3 7.5m18 0v9L12 21m9-13.5L12 12m0 9V12m0 0L3 7.5"
+                          )
+
+                        div
+                          p(class="text-green-600 font-semibold")
+                            | Productos Más Vendidos
+                          p(class="text-xl font-bold text-gray-900")
+                            | Tratamiento Barba
+
+                    // ─── CONTENIDO INFERIOR ─────────────────────────
+                    div(class="grid grid-cols-1 lg:grid-cols-3 gap-6")
+
+                      // Columna izquierda
+                      div(class="space-y-6")
+
+                        // Mejor barbero
+                        div(class="flex items-center gap-4")
+                          div(class="w-16 h-16 rounded-full border-2 border-black flex items-center justify-center text-3xl font-extrabold")
+                            | 6
+                          p(class="text-lg font-semibold")
+                            | Mejor barbero de
+                            br
+                            | las tiendas
+
+                        // Ticket promedio
+                        div(class="flex items-center gap-4")
+                          // Icono Heroicons (ticket)
+                          svg(
+                            xmlns="http://www.w3.org/2000/svg"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke-width="1.5"
+                            stroke="currentColor"
+                            class="w-10 h-10 text-gray-800"
+                          )
+                            path(
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                              d="M16.5 6.75v10.5m-9-10.5v10.5M3 9h18M3 15h18"
+                            )
+
+                          div
+                            p(class="text-green-600 font-semibold text-lg")
+                              | Ticket Promedio
+                            p(class="text-2xl font-bold text-gray-900")
+                              | $120.000
+
+                      // ─── TABLA: PRÓXIMAS CITAS ─────────────────────
+                      div(class="lg:col-span-2")
+                        div(class="border rounded-xl p-4 h-full")
+
+                          p(class="text-green-600 font-semibold text-right mb-4")
+                            | Próximas Citas
+
+                          // Contenedor real para tabla
+                          div(class="overflow-x-auto")
+                            table(class="min-w-full border-collapse")
+                              thead
+                                tr(class="border-b text-left text-sm text-gray-600")
+                                  th(class="py-2 px-3") Cliente
+                                  th(class="py-2 px-3") Servicio
+                                  th(class="py-2 px-3") Hora
+                              tbody
+                                tr(class="border-b")
+                                  td(class="py-2 px-3 text-gray-800") —
+                                  td(class="py-2 px-3 text-gray-800") —
+                                  td(class="py-2 px-3 text-gray-800") —

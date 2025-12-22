@@ -1,6 +1,6 @@
 import { check, validationResult } from "express-validator";
 import { Op } from "sequelize";
-import {PuntosDeVenta, DisponibilidadProducto , ProductosServicios } from "../models/index.js";
+import {PuntosDeVenta, DisponibilidadProducto , ProductosServicios, Barbero } from "../models/index.js";
 
 
 
@@ -46,12 +46,7 @@ const loadDatospuntoVenta = async (req,res)=>{
         btn : 'EDITAR',
         datosPunto,
         activeForm,
-        mostrarData : form === 'data',
-        ingresosServicios : form == 'ingresosServicios',
-        gastosCostos : form == 'gastosCostos',
-        inventarioProductos : form == 'inventarioProductos',
-        barberos : form == 'barberos',
-        cajaReportes : form == 'cajaReportes',
+    
     })
 }
 
@@ -59,6 +54,9 @@ const loadDatospuntoVenta = async (req,res)=>{
 const loadBarberosPuntoVenta = async (req,res)=>{
     //activeForm : 'productosyservicios'
     const {idPuntoVenta} = req.params;
+    const datosPunto = await PuntosDeVenta.findOne({where : { idPuntoVenta : idPuntoVenta}})
+    const listadoBarberos = await Barbero.findAll({where : {idBarberia :idPuntoVenta }})
+
     return res.status(201).render('../views/dashboard/puntosVenta/verBarberosPunto',{
         APPNAME : process.env.APP_NAME,
         csrfToken : req.csrfToken(),
@@ -68,7 +66,9 @@ const loadBarberosPuntoVenta = async (req,res)=>{
         activeForm : 'barberos',
         datosPunto : {
             idPuntoVenta : idPuntoVenta
-        }
+        },
+        datosPunto,
+        listadoBarberos
     })
 }
 
@@ -86,7 +86,6 @@ const loadIngresosServicios = async (req,res)=>{
         datosPunto : {
             idPuntoVenta : idPuntoVenta
         },
-        listaProductos
     })
 }
 
