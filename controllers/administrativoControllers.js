@@ -152,7 +152,7 @@ const editarProductoServicio = async(req, res)=>{
         idsPuntosDisponibles,
         preciosPorPunto,
         activeForm : 'productosyservicios'
-     })
+     }) 
 }
 
 

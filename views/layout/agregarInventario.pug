@@ -1,0 +1,46 @@
+form( method="POST" action="/panel/puntosDeVenta/verInventarios/" id="formInventario" enctype="multipart/form-data" class="space-y-6")
+    input(type="hidden", name="_csrf" value = csrfToken)
+    input(type="hidden", name="idPuntoVenta" value  = (datosPunto ? datosPunto.idPuntoVenta : ""))
+    input(type="hidden", name="idProductoServicio" id="idProductoServicio"  value = "")
+    //- Nombre Barbería
+    div(class="grid grid-cols-1 md:grid-cols-3 gap-4")
+        div
+            label(for="codigo" class="block text-sm font-medium text-slate-700 mb-1") Codigo Sku
+            input(
+            type="text"
+            id="codigo"
+            name="codigo"
+            placeholder="Codigo del producto"
+            class="block w-full rounded-lg border border-gray-200 bg-gray-50 px-3 py-2.5 text-sm text-slate-800 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+            )
+
+        div
+            label(for="nombre" class="block text-sm font-medium text-slate-700 mb-1") Nombre del Producto
+            input(
+            type="text"
+            id="nombre"
+            name="nombre"
+            readonly
+            placeholder="...Esperando al código"
+            class="block w-full rounded-lg border border-gray-200 bg-gray-50 px-3 py-2.5 text-sm text-slate-800 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+            )
+
+        div
+            label(for="nombre" class="block text-sm font-medium text-slate-700 mb-1") Cantidad
+            input(
+            type="number"
+            id="unidades"
+            name="unidades"
+            min = 0
+            max = 1000
+            
+            placeholder="...Esperando al código"
+            class="block w-full rounded-lg border border-gray-200 bg-gray-50 px-3 py-2.5 text-sm text-slate-800 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+            )
+        
+    div(class="flex w-4xl text-center")
+        #botonAgregarProducto
+        #botonAgregarInventario
+
+    
+        

@@ -1,5 +1,4 @@
 import { DataTypes, UUIDV4 } from "sequelize";
-import bcrypt from "bcrypt";
 import db from "../config/db.js";
 
 const DisponibilidadProducto = db.define('disponibilidadProducto', {
@@ -19,13 +18,23 @@ const DisponibilidadProducto = db.define('disponibilidadProducto', {
     unidadesDisponibles : {
         type: DataTypes.INTEGER,
         defaultValue : 1,
+    },
+    recibido : {
+        type : DataTypes.BOOLEAN,
+        defaultValue : true
     }
 
 }, {
     tableName : 'disponibilidadProducto',
     timestamps : true,
+    indexes :[
+        {
+            unique : true,
+            fields : ['idProductoServicio', 'idPuntoVenta']
+        }
+    ]
     
-})
+}, )
 
 
 export default DisponibilidadProducto;

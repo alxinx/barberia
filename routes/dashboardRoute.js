@@ -1,6 +1,6 @@
 import express from "express";
 import {home, crearPuntosVentaPost, editarPuntosVenta, logOut} from "../controllers/dashboardControllers.js";
-import {crearPuntosVenta, loadDatospuntoVenta, listadoPuntosVenta, editarPuntosVentaPost, loadIngresosServicios, loadGastosYCostos, loadInventarioProductos, loadBarberosPuntoVenta} from "../controllers/puntoVentaControllers.js"
+import {crearPuntosVenta, loadDatospuntoVenta, listadoPuntosVenta, editarPuntosVentaPost, ingresoInventarioPuntoVenta, loadIngresosServicios, loadGastosYCostos, loadInventarioProductos, loadBarberosPuntoVenta, buscaProductoSkuEan} from "../controllers/puntoVentaControllers.js"
 
 import {homeAdministrativo, datosAdminPost, administrativoNuevoProductoServicio,  administrativoProductosServicios, administrativoComisiones, nuevoProductoServicio, administrativoInformes, editarProductoServicio} from "../controllers/administrativoControllers.js"
 
@@ -24,10 +24,14 @@ route.get('/puntosDeVenta/verMovimientos/:idPuntoVenta', loadIngresosServicios)
 route.get('/puntosDeVenta/verGastosYCostos/:idPuntoVenta', loadGastosYCostos)
 route.get('/puntosDeVenta/verInventarios/:idPuntoVenta',loadInventarioProductos)
 route.get('/puntosDeVenta/verBarberos/:idPuntoVenta',loadBarberosPuntoVenta)
+route.get('/puntosDeVenta/buscarSkuEan/:valor', buscaProductoSkuEan)
+
 
 route.post('/puntosDeVenta/ver/:idPuntoVenta', editarPuntosVentaPost )
 route.post('/puntosDeVenta/nuevoPunto', crearPuntosVentaPost)
 route.post('/puntosDeVenta/ver/:idPuntoVenta', editarPuntosVentaPost )
+route.post('/inventario/agregar/', ingresoInventarioPuntoVenta)
+
 //FIN PUNTOS DE VENTA
 
 

@@ -47,7 +47,7 @@ DisponibilidadProducto.belongsTo(ProductosServicios, {
 
 PuntosDeVenta.hasMany(DisponibilidadProducto, {
     foreignKey: "idPuntoVenta",
-    as : 'preciosPorPunto'
+    as : 'disponibilidades'
   });
   
 DisponibilidadProducto.belongsTo(PuntosDeVenta, {

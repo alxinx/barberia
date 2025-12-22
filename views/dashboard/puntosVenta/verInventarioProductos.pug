@@ -1,11 +1,12 @@
 extends ../../layout/headerDashboard.pug
-
 block styles
 
 block content
+  
+
   main(class="min-h-screen bg-[#F5F7F4] flex")
     include ../../layout/leftMenu.pug
-
+    
     section(class="flex-1 p-10")
       include ../../layout/header-body.pug
       include ../../layout/headerPuntosVenta.pug
@@ -14,8 +15,13 @@ block content
 
         // ================= TARJETA IZQUIERDA =================
         aside(class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 min-h-[64vh] lg:col-span-1")
-            //include ./tarjetaPuntoVenta.pug
+            include ./cardIndicadorGlobalProductos.pug
+
         // ================= TARJETA DERECHA =================
         aside(class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 min-h-[60vh] lg:col-span-3")
             include ./navPuntosVenta.pug
-            h1=subTitulo
+            h1(class="spanOrange")=subTitulo
+
+            include ./listaProductosServicios.pug
+    
+    script(src="/js/busquedaSku.js") 
