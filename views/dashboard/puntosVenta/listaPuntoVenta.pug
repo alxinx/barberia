@@ -1,14 +1,24 @@
 extends ../../layout/headerDashboard.pug
-block styles
+
 block content
-    main(class="min-h-screen bg-[#F5F7F4] flex")
-        include ../../layout/leftMenu.pug
-        section(class="flex-1 p-10")
-            include ../../layout/header-body.pug
-            include ../../layout/headerPuntosVenta.pug
-            include ../../layout/listaPuntosVenta.pug
+  main(class="min-h-screen bg-[#F5F7F4] flex")
+    include ../../layout/leftMenu.pug
+
+    section(class="flex-1 p-10")
+      include ../../layout/header-body.pug
+      include ../../layout/headerPuntosVenta.pug
+
+      div(class="flex gap-2 w-full")
+        div(class="subCard w-90 mt-8")
+          h1(class="spanGreen text-center text-2xl") Gráfico Ùltumos 4 Días
+          
+          div(id="chart" class="w-full h-[350px]")
+
+        div(class="flex items-center gap-2")
+          include ../../layout/listaPuntosVenta.pug
 
 
-    
-        
-
+        block scripts
+            script(src="https://cdn.jsdelivr.net/npm/apexcharts")
+            
+            script(src="/js/charts.js")

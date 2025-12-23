@@ -8,7 +8,8 @@ export default {
         async : "./src/js/async.js",
         opeenModal : "./src/js/openModal.js",
         mostrarPreciosPorPunto : "./src/js/mostrarPreciosPorPunto.js",
-        busquedaSku : "./src/js/busquedaSku.js"
+        busquedaSku : "./src/js/busquedaSku.js",
+        charts : "./src/js/charts.js"
 
     },
     output : {
